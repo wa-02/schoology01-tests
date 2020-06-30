@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.0.0'
+
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '6.0.0'
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-testng
+    compile group: 'io.cucumber', name: 'cucumber-testng', version: '6.0.0'
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer
+    testCompile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.0.0'
+
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    // https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+
+}
+
+task runFeatures (type: Test) {
+    useTestNG()
+    options {
+        jvmArgs = ['-Dcucumber.options= -- glue org.example --plugin pretty']
+    }
+    testLogging.showStandardStreams = true
+}
