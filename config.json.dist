@@ -1,0 +1,30 @@
+{
+  "browser": "chrome",
+  "language": "en",
+  "credentials": {
+    "Instructor01": {
+      "username": "",
+      "password": ""
+    },
+    "Instructor02": {
+      "username": "",
+      "password": ""
+    },
+    "Student01": {
+      "username": "",
+      "password": ""
+    },
+    "Student02": {
+      "username": "",
+      "password": ""
+    }
+    "Student03": {
+      "username": "",
+      "password": ""
+    },
+    "Student04": {
+      "username": "",
+      "password": ""
+    }
+  }
+}
