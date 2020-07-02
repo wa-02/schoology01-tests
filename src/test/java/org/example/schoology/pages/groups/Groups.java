@@ -1,6 +1,7 @@
 package org.example.schoology.pages.groups;
 
 import org.example.schoology.pages.ViewList;
+import org.example.schoology.pages.groups.DeleteGroupPopup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -20,6 +21,9 @@ public class Groups extends ViewList {
 
     @FindBy(css = "a.groups-enroll")
     private WebElement joinGroupButton;
+
+    @FindBy(css = "ul[style='display: block;'] .action-delete")
+    private WebElement deleteGroup;
 
     public CreateGroupPopup clickCreateGroupButton() {
         createGroupButton.click();
@@ -56,6 +60,19 @@ public class Groups extends ViewList {
 
         wait.until(ExpectedConditions.visibilityOf(groupDetailLink));
         groupDetailLink.click();
+    }
+
+    public DeleteGroupPopup clickDeleteGroup(final String groupName) {
+        WebElement groupActionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
+                groupName)));
+
+        // Scroll
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", groupActionsButton);
+
+        groupActionsButton.click();
+        deleteGroup.click();
+        return new DeleteGroupPopup();
     }
 
     public boolean existGroupByName(final String groupName) {

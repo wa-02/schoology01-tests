@@ -9,6 +9,10 @@ public abstract class AbstractDetail extends AbstractPage {
     @FindBy(css = "span[class='enrollment-code']")
     private WebElement accessCode;
 
+    @FindBy(css = "#edit-submit")
+    protected WebElement submitButton;
+
+
     public String saveCreatedCourseAccessCode() {
         return action.getText(accessCode);
     }
