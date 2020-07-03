@@ -31,7 +31,7 @@ Feature: Groups
     And I join in a group with Access code
     And I access to "SeleniumWebDriverJoin2" Group detail
     And I add a post "Comment of instructor B"
-    Then I should see a post with with "Comment of instructor B" as description
+    Then I should see a post with "Comment of instructor B" as description
 
   @deleteCourse
   Scenario: Instructor A is not able to join in a group with Course access code

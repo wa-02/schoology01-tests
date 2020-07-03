@@ -10,7 +10,6 @@ public class DetailGroup extends AbstractDetail {
 
     public static final String XPATH_DESCRIPTION_POST_CREATED = "//p[text()='%s']";
 
-    //@FindBy(xpath = "//body[contains(@class, 'mceContentBody')]/child::p")
     @FindBy(css = "body[class='mceContentBody ']")
     private WebElement postField;
 

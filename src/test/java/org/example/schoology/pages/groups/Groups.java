@@ -69,7 +69,9 @@ public class Groups extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", groupActionsButton);
 
+        wait.until(ExpectedConditions.visibilityOf(groupActionsButton));
         groupActionsButton.click();
+        wait.until(ExpectedConditions.visibilityOf(deleteGroup));
         deleteGroup.click();
         return new DeleteGroupPopup();
     }
