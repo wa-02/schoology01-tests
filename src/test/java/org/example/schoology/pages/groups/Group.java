@@ -6,9 +6,5 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Group extends AbstractPage {
 
-    private final By cssGroupProfile = By.cssSelector(".action-links-unfold-text");
 
-    public Group() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(cssGroupProfile));
-    }
 }
