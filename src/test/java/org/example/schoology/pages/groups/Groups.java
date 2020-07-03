@@ -13,13 +13,26 @@ public class Groups extends ViewList {
     public static final String SELECT_ACTIONS = "//a[text()='%s']/ancestor::li//ul//li[@class='action-edit']";
     public static final String GROUP_BY_NAME = "//a[text()='%s']";
 
+
     @FindBy(css = "a.create-group")
     private WebElement createGroupButton;
+
+    @FindBy(css = "a.groups-enroll")
+    private WebElement joinGroupButton;
+
+    @FindBy(css = "ul[style='display: block;'] .action-delete")
+    private WebElement deleteGroup;
 
     public CreateGroupPopup clickCreateGroupButton() {
         createGroupButton.click();
         return new CreateGroupPopup();
     }
+
+    public JoinGroupPopup clickJoinGroupButton() {
+        joinGroupButton.click();
+        return new JoinGroupPopup();
+    }
+
 
     public EditGroupPopup clickEditGroup(final String groupName) {
         WebElement groupActionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON, groupName)));
@@ -35,6 +48,39 @@ public class Groups extends ViewList {
 
     public String getGroupByName(final String groupName) {
         return driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName))).getText();
+    }
+
+    public void clickDetailGroupByName(final String groupName) {
+        WebElement groupDetailLink = driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName)));
+        // Scroll
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", groupDetailLink);
+
+        wait.until(ExpectedConditions.visibilityOf(groupDetailLink));
+        groupDetailLink.click();
+    }
+
+    public DeleteGroupPopup clickDeleteGroup(final String groupName) {
+        WebElement groupActionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
+                groupName)));
+
+        // Scroll
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", groupActionsButton);
+
+        wait.until(ExpectedConditions.visibilityOf(groupActionsButton));
+        groupActionsButton.click();
+        wait.until(ExpectedConditions.visibilityOf(deleteGroup));
+        deleteGroup.click();
+        return new DeleteGroupPopup();
+    }
+
+    public boolean existGroupByName(final String groupName) {
+        boolean exist = false;
+        if (!driver.findElements(By.xpath(String.format(GROUP_BY_NAME, groupName))).isEmpty()) {
+            exist = true;
+        }
+            return exist;
     }
 
 }

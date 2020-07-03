@@ -4,4 +4,5 @@ import org.example.core.ui.AbstractPage;
 
 public class Group extends AbstractPage {
 
+
 }

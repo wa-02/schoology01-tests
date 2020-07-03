@@ -32,6 +32,9 @@ public abstract class AbstractGroupPopup extends AbstractPage {
     @FindBy(css = "#edit-submit")
     protected WebElement submitButton;
 
+    @FindBy(css = "#edit-invite-code")
+    protected WebElement accessCodeField;
+
     public void fill(final Map<String, String> groupMap) {
         Map<String, Step> stepMap = new HashMap<>();
         stepMap.put("name", () -> setName(groupMap.get("name")));
@@ -44,6 +47,11 @@ public abstract class AbstractGroupPopup extends AbstractPage {
         for (final String keyField : groupMap.keySet()) {
             stepMap.get(keyField).execute();
         }
+    }
+
+    public void fillAccessCode(final String accessCodeValue) {
+        accessCodeField.clear();
+        accessCodeField.sendKeys(accessCodeValue);
     }
 
     public void setName(final String name) {
