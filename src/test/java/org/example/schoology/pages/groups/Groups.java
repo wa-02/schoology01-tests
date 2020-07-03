@@ -6,7 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.NoSuchElementException;
 
 public class Groups extends ViewList {
 
@@ -75,15 +75,11 @@ public class Groups extends ViewList {
     }
 
     public boolean existGroupByName(final String groupName) {
-        try {
-            WebElement groupItem = driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName)));
-            return true;
-        } catch (WebDriverException e) {
-            // nothing.
-            return false;
-        } finally {
-            return false;
+        boolean exist = false;
+        if(!driver.findElements(By.xpath(String.format(GROUP_BY_NAME, groupName))).isEmpty()) {
+            exist = true;
         }
+            return exist;
     }
 
 }

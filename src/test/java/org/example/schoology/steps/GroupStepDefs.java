@@ -6,16 +6,19 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
-import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.SubMenu;
-import org.example.schoology.pages.groups.*;
+import org.example.schoology.pages.groups.Groups;
+import org.example.schoology.pages.groups.DetailGroup;
+import org.example.schoology.pages.groups.EditGroupPopup;
+import org.example.schoology.pages.groups.CreateGroupPopup;
+import org.example.schoology.pages.groups.Group;
+import org.example.schoology.pages.groups.JoinGroupPopup;
 import org.testng.Assert;
 
 public class GroupStepDefs {
 
     private ScenarioContext context;
-    private Courses courses;
 
     private final Groups groups;
 
