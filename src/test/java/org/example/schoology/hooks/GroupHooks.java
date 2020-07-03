@@ -28,7 +28,7 @@ public class GroupHooks {
 
 
     @After(value = "@deleteGroupInstructor1")
-    public void deleteCourse() {
+    public void deleteGroup() {
         // What is the course name for deleting ?
 
         // delete by UI (~10 sec)
