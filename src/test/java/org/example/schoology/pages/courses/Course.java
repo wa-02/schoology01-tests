@@ -11,14 +11,7 @@ public class Course extends AbstractPage {
 
     private final By cssCourseProfile = By.cssSelector("#course-profile-materials");
 
-    @FindAll({
-            @FindBy(css = "#course-profile-materials"),
-            @FindBy(css = "#cursos-profile-materials")
-    })
-    private WebElement courseProfileMaterials;
-
     public Course() {
-        wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
+       wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
     }
 }

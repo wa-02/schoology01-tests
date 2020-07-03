@@ -35,7 +35,7 @@ Feature: Groups
 
   @deleteCourse
   Scenario: Instructor A is not able to join in a group with Course access code
-    Given I log in as "Instructor01" user
+    Given I log in as "Instructor02" user
     And I create a course with:
       | name    | SeleniumWebDriverJoin3 |
       | section | New Section       |
