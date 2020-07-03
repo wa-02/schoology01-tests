@@ -25,12 +25,12 @@ public class Groups extends ViewList {
     private WebElement deleteGroup;
 
     public CreateGroupPopup clickCreateGroupButton() {
-        createGroupButton.click();
+        action.click(createGroupButton);
         return new CreateGroupPopup();
     }
 
     public JoinGroupPopup clickJoinGroupButton() {
-        joinGroupButton.click();
+        action.click(joinGroupButton);
         return new JoinGroupPopup();
     }
 
