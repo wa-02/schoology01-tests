@@ -1,7 +1,6 @@
 package org.example.schoology.pages.groups;
 
 import org.example.schoology.pages.ViewList;
-import org.example.schoology.pages.groups.DeleteGroupPopup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -82,7 +81,7 @@ public class Groups extends ViewList {
         } catch (WebDriverException e) {
             // nothing.
             return false;
-        }finally {
+        } finally {
             return false;
         }
     }

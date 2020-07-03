@@ -4,14 +4,12 @@ import java.util.Map;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.courses.Courses;
-import org.example.schoology.pages.courses.DetailCourse;
-import org.example.schoology.pages.groups.*;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.SubMenu;
+import org.example.schoology.pages.groups.*;
 import org.testng.Assert;
 
 public class GroupStepDefs {

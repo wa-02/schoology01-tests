@@ -22,7 +22,7 @@ public class CommonStepDefs {
 
     private SubMenu subMenu;
 
-    public CommonStepDefs(final SharedDriver sharedDriver,final ScenarioContext context) {
+    public CommonStepDefs(final SharedDriver sharedDriver, final ScenarioContext context) {
         this.context = context;
     }
 

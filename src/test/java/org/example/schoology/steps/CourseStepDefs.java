@@ -8,7 +8,6 @@ import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
-import org.example.schoology.pages.courses.DetailCourse;
 import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.groups.Groups;
 import org.example.schoology.pages.Home;
