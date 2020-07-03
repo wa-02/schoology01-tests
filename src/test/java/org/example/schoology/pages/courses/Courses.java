@@ -1,5 +1,6 @@
 package org.example.schoology.pages.courses;
 
+import org.example.schoology.pages.DeletePopup;
 import org.example.schoology.pages.ViewList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -40,7 +41,7 @@ public class Courses extends ViewList {
         return new EditCoursePopup();
     }
 
-    public DeleteCoursePopup clickDeleteCourse(final String courseName) {
+    public DeletePopup clickDeleteCourse(final String courseName) {
         WebElement courseActionsButton = driver.findElement(By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON,
                 courseName)));
 
@@ -50,7 +51,7 @@ public class Courses extends ViewList {
 
         courseActionsButton.click();
         deleteCourse.click();
-        return new DeleteCoursePopup();
+        return new DeletePopup();
     }
 
     public String getSectionByName(final String courseName) {

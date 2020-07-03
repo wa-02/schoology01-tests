@@ -1,5 +1,6 @@
 package org.example.schoology.pages.groups;
 
+import org.example.schoology.pages.DeletePopup;
 import org.example.schoology.pages.ViewList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -60,7 +61,7 @@ public class Groups extends ViewList {
         groupDetailLink.click();
     }
 
-    public DeleteGroupPopup clickDeleteGroup(final String groupName) {
+    public DeletePopup clickDeleteGroup(final String groupName) {
         WebElement groupActionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
                 groupName)));
 
@@ -72,7 +73,7 @@ public class Groups extends ViewList {
         groupActionsButton.click();
         wait.until(ExpectedConditions.visibilityOf(deleteGroup));
         deleteGroup.click();
-        return new DeleteGroupPopup();
+        return new DeletePopup();
     }
 
     public boolean existGroupByName(final String groupName) {

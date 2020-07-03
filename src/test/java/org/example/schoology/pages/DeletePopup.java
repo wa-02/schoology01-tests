@@ -1,10 +1,10 @@
-package org.example.schoology.pages.groups;
+package org.example.schoology.pages;
 
 import org.example.core.ui.AbstractPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class DeleteGroupPopup extends AbstractPage {
+public class DeletePopup extends AbstractPage {
 
     @FindBy(css = "#edit-submit")
     private WebElement deleteButton;
