@@ -51,7 +51,7 @@ public class GroupHooks {
         deleteGroup();
 
     }
-    private void deleteGroup(){
+    private void deleteGroup() {
         String menu = Internationalization.getInstance().getValue("menu_group");
         SubMenu subMenu = new Home().clickMenu(menu);
         subMenu.clickViewListLink(menu);
