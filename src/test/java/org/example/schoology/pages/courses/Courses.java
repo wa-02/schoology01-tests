@@ -24,7 +24,7 @@ public class Courses extends ViewList {
     private WebElement deleteCourse;
 
     public CreateCoursePopup clickCreateCourseButton() {
-        createCourseButton.click();
+        action.click(createCourseButton);
         return new CreateCoursePopup();
     }
 
@@ -36,8 +36,8 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
 
-        courseActionsButton.click();
-        editCourse.click();
+        action.click(courseActionsButton);
+        action.click(editCourse);
         return new EditCoursePopup();
     }
 
@@ -49,8 +49,9 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
 
-        courseActionsButton.click();
-        deleteCourse.click();
+        action.click(courseActionsButton);
+        action.click(deleteCourse);
+
         return new DeletePopup();
     }
 
