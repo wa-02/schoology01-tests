@@ -17,8 +17,23 @@ public class Course extends AbstractPage {
     })
     private WebElement courseProfileMaterials;
 
+    @FindBy(css = ".enrollment-code")
+    private WebElement accessCode;
+
+    @FindBy(css = "div.course-member-left-menu")
+    private WebElement membersButton;
+
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
+    }
+
+    public String getAccessCode() {
+        return accessCode.getText();
+    }
+
+    public Members clickMembers() {
+        membersButton.click();
+        return new Members();
     }
 }
