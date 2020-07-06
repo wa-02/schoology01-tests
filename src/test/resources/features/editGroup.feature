@@ -1,7 +1,7 @@
 Feature: Groups
 
   Scenario: Edit a group
-    Given I log in as "Student01" user
+    Given I log in as "Student02" user
     And I create a group with:
       | name        | SeleniumWebDriver |
       | description | Description       |
