@@ -62,5 +62,8 @@ public abstract class AbstractCoursePopup extends AbstractPage {
         levelField.selectByVisibleText(level);
     }
 
-    public void setAccessCode(final String code){accessCodeTextField.sendKeys(code);}
+    public void setAccessCode(final String code) {
+        accessCodeTextField.sendKeys(code);
+    }
+
 }

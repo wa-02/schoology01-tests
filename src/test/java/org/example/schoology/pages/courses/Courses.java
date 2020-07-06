@@ -69,7 +69,7 @@ public class Courses extends ViewList {
         return driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName))).getText();
     }
 
-    public Course clickCourseLink(final  String courseName){
+    public Course clickCourseLink(final  String courseName) {
         driver.findElement(By.xpath(String.format(XPATH_COURSE_LINK, courseName))).click();
         return new Course();
     }

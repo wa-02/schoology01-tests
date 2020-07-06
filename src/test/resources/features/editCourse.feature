@@ -2,7 +2,7 @@ Feature: Courses
 
   @deleteCourse
   Scenario: Edit a course
-    Given I log in as "Instructor01" user
+    Given I log in as "Instructor02" user
     And I create a course with:
       | name    | SeleniumWebDriver |
       | section | New Section       |

@@ -28,11 +28,11 @@ public class Course extends AbstractPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
     }
 
-    public String getAccessCode(){
+    public String getAccessCode() {
         return accessCode.getText();
     }
 
-    public Members clickMembers(){
+    public Members clickMembers() {
         membersButton.click();
         return new Members();
     }

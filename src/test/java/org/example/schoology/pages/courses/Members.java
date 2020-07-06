@@ -12,11 +12,11 @@ public class Members extends AbstractPage {
     @FindBy(css = "tr.enrollment-member>td.user-name>a.sExtlink-processed")
     private WebElement fullNameText;
 
-    public void clickMembers(){
+    public void clickMembers() {
         membersTab.click();
     }
 
-    public void searchStudent(final String firstName, final String lastName){
-        Assert.assertEquals(fullNameText.getText(), firstName +" "+ lastName);
+    public void searchStudent(final String firstName, final String lastName) {
+        Assert.assertEquals(fullNameText.getText(), firstName + " " + lastName);
     }
 }

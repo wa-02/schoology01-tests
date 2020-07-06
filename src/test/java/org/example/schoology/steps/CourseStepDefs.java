@@ -93,9 +93,8 @@ public class CourseStepDefs {
         joinCoursePopup.join(context.getValue(code));
     }
 
-
     @Then("I am as {string} should have a {string} user in the {string} course")
-    public void iAmAsShouldHaveAUserInTheCourse(String account, String member, String subject) {
+    public void iAmAsShouldHaveAUserInTheCourse(final String account, final String member, final String subject) {
         // Login
         Login login = new Login();
         home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
@@ -108,8 +107,6 @@ public class CourseStepDefs {
         members.clickMembers();
         members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
                 Environment.getInstance().getValue(String.format("credentials.%s.lastName", member)));
-
-
 
     }
 }
