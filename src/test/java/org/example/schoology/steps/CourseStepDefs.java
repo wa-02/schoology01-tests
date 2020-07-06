@@ -3,12 +3,20 @@ package org.example.schoology.steps;
 import java.util.Map;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.example.core.Environment;
 import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
+import org.example.schoology.pages.Login;
+import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
 import org.example.schoology.pages.courses.EditCoursePopup;
+import org.example.schoology.pages.courses.JoinCoursePopup;
+import org.example.schoology.pages.courses.Members;
 import org.example.schoology.pages.groups.Groups;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.SubMenu;
@@ -54,4 +62,54 @@ public class CourseStepDefs {
         Assert.assertEquals(expectedSection, courses.getSectionByName(courseName));
     }
 
+    @Given("I am a {string} of:")
+    public void iAmAOf(final String account, final Map<String, String> datatable) {
+        // Login
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+
+        // Create course
+        iCreateACourseWith(datatable);
+    }
+
+    @And("I have the course code")
+    public void iHaveTheCourseCode() {
+        Course course = new Course();
+        String code = course.getAccessCode();
+        context.setContext("AccessCode", code);
+    }
+
+    @When("{string} user use the {string}")
+    public void useTheAccessCode(final String account, final String code) {
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+
+        String menu = Internationalization.getInstance().getValue("menu");
+        subMenu = home.clickMenu(menu);
+        subMenu.clickViewListLink(menu);
+        JoinCoursePopup joinCoursePopup = this.courses.clickJoinCourseButton();
+        joinCoursePopup.join(context.getValue(code));
+    }
+
+
+    @Then("I am as {string} should have a {string} user in the {string} course")
+    public void iAmAsShouldHaveAUserInTheCourse(String account, String member, String subject) {
+        // Login
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        Course course = courses.clickCourseLink(subject);
+        Members members = course.clickMembers();
+        members.clickMembers();
+        members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
+                Environment.getInstance().getValue(String.format("credentials.%s.lastName", member)));
+
+
+
+    }
 }

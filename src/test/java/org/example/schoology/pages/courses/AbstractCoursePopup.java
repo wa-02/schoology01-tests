@@ -23,6 +23,9 @@ public abstract class AbstractCoursePopup extends AbstractPage {
     @FindBy(css = "#edit-grade-level-range-start")
     private WebElement levelDropDown;
 
+    @FindBy(css = "#edit-invite-code")
+    private WebElement accessCodeTextField;
+
     @FindBy(css = "#edit-submit")
     protected WebElement submitButton;
 
@@ -32,6 +35,7 @@ public abstract class AbstractCoursePopup extends AbstractPage {
         stepsMap.put("section", () -> setSection(courseMap.get("section")));
         stepsMap.put("area", () -> selectSubjectArea(courseMap.get("area")));
         stepsMap.put("level", () -> selectLevel(courseMap.get("level")));
+        stepsMap.put("accessCode", () -> setAccessCode(courseMap.get("accessCode")));
 
         for (final String keyField : courseMap.keySet()) {
             stepsMap.get(keyField).execute();
@@ -57,4 +61,6 @@ public abstract class AbstractCoursePopup extends AbstractPage {
         Select levelField = new Select(levelDropDown);
         levelField.selectByVisibleText(level);
     }
+
+    public void setAccessCode(final String code){accessCodeTextField.sendKeys(code);}
 }
