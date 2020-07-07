@@ -29,12 +29,12 @@ public class Courses extends ViewList {
     private WebElement deleteCourse;
 
     public CreateCoursePopup clickCreateCourseButton() {
-        createCourseButton.click();
+        action.click(createCourseButton);
         return new CreateCoursePopup();
     }
 
     public JoinCoursePopup clickJoinCourseButton() {
-        joinCourseButton.click();
+        action.click(joinCourseButton);
         return new JoinCoursePopup();
     }
 
@@ -47,8 +47,8 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
 
-        courseActionsButton.click();
-        editCourse.click();
+        action.click(courseActionsButton);
+        action.click(editCourse);
         return new EditCoursePopup();
     }
 
@@ -60,17 +60,19 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
 
-        courseActionsButton.click();
-        deleteCourse.click();
+        action.click(courseActionsButton);
+        action.click(deleteCourse);
         return new DeleteCoursePopup();
     }
 
     public String getSectionByName(final String courseName) {
-        return driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName))).getText();
+        WebElement sectionName =  driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName)));
+        return action.getText(sectionName);
     }
 
     public Course clickCourseLink(final  String courseName) {
-        driver.findElement(By.xpath(String.format(XPATH_COURSE_LINK, courseName))).click();
+        WebElement courseLink =  driver.findElement(By.xpath(String.format(XPATH_COURSE_LINK, courseName)));
+        action.click(courseLink);
         return new Course();
     }
 }
