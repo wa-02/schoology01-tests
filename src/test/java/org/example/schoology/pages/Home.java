@@ -19,7 +19,7 @@ public class Home extends AbstractPage {
     }
 
     public Resources clickResourcesMenu(final String menuName){
-        action.click(By.xpath(String.format("//a[text()='%s']", menuName)));
+        action.click(By.xpath(String.format("//a[text()='Resources']", menuName)));
         return new Resources();
     }
 

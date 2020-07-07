@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.core.Internationalization;
+import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.resources.AddCollectionPopup;
@@ -22,10 +23,13 @@ public class ResourceStepDefs {
 
     private AddCollectionPopup addCollectionPopup;
 
-    private ShareSettingsPopup shareSetting;
+    private ShareSettingsPopup shareSettingPopup;
 
-    public ResourceStepDefs(final SharedDriver sharedDriver, final Home home) {
+    private ScenarioContext context;
+
+    public ResourceStepDefs(final SharedDriver sharedDriver, final ScenarioContext context, final Home home) {
         this.home = home;
+        this.context = context;
     }
 
     @And("I create a resource collection with:")
@@ -38,12 +42,19 @@ public class ResourceStepDefs {
 
     @When("I share the {string} collection with {string}")
     public void iShareTheCollectionWith(String collection, String instructorTwo) {
-        shareSetting = resources.clickShareCollection(collection);
-        shareSetting.searchTeacher(instructorTwo);
+        shareSettingPopup = resources.clickShareCollection(collection);
+        shareSettingPopup.searchTeacher(instructorTwo);
     }
+
+    @When("I navigate to the {string}")
+    public void iNavigateToTheResources(final String menu) {
+        resources = home.clickResourcesMenu(menu);
+    }
+
 
     @Then("I should see the {string} title collection")
     public void iShouldSeeTheTitleCollection(String expectedCollection) {
         Assert.assertEquals(expectedCollection, resources.getCollectionByName(expectedCollection));
     }
+
 }

@@ -4,6 +4,7 @@ import org.example.schoology.pages.ViewList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Resources extends ViewList {
 
@@ -14,11 +15,6 @@ public class Resources extends ViewList {
 
     @FindBy(css="#collection-share-link")
     private WebElement shareButton;
-
-
-    @FindBy (css = "#collection-add-question-bank")
-    private WebElement addQuestionBankButton;
-
 
     private final By deletePopUp = By.cssSelector("#popups-1");
 
@@ -36,12 +32,13 @@ public class Resources extends ViewList {
      }
 
     public ShareSettingsPopup clickShareCollection(String collectionName){
-        driver.findElement(By.xpath(String.format(COLLECTION_BY_NAME, collectionName)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"icon home\"]")));
+        action.click(By.xpath(String.format(COLLECTION_BY_NAME, collectionName)));
         action.click(shareButton);
         return new ShareSettingsPopup();
     }
 
     public String getCollectionByName(String collectionName){
-         return driver.findElement(By.xpath(String.format(COLLECTION_BY_NAME))).getText();
+         return driver.findElement(By.xpath(String.format(COLLECTION_BY_NAME, collectionName))).getText();
     }
 }

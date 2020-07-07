@@ -14,7 +14,7 @@ public class AbstractCollectionPopup extends AbstractPage {
     @FindBy(css = "#edit-title")
     protected WebElement collectionTitleField;
 
-    @FindBy(css = "#input[value=\"Create\"]")
+    @FindBy(css = "input[value=\"Create\"]")
     protected WebElement submitButton;
 
 
