@@ -1,28 +1,28 @@
 {
-  "browser": "chrome",
+  "browser": "headless",
   "language": "en",
   "credentials": {
     "Instructor01": {
+      "firstName": "",
+      "lastName": "",
       "username": "",
       "password": ""
     },
     "Instructor02": {
+      "firstName": "",
+      "lastName": "",
       "username": "",
       "password": ""
     },
     "Student01": {
+      "firstName": "",
+      "lastName": "",
       "username": "",
       "password": ""
     },
     "Student02": {
-      "username": "",
-      "password": ""
-    }
-    "Student03": {
-      "username": "",
-      "password": ""
-    },
-    "Student04": {
+      "firstName": "",
+      "lastName": "",
       "username": "",
       "password": ""
     }

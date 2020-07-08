@@ -13,8 +13,14 @@ public class Courses extends ViewList {
     public static final String XPATH_SECTION_BY_NAME =
             "//span[text()='%s']/parent::p/parent::li//a[@class='sExtlink-processed']";
 
+    public static final String XPATH_COURSE_LINK =
+            "//span[text()='%s']/ancestor::li//a[@class='sExtlink-processed']";
+
     @FindBy(css = "a.create-course-btn")
     private WebElement createCourseButton;
+
+    @FindBy(css = "a.courses-enroll")
+    private WebElement joinCourseButton;
 
     @FindBy(css = "ul[style=\"display: block;\"] .action-edit")
     private WebElement editCourse;
@@ -23,9 +29,15 @@ public class Courses extends ViewList {
     private WebElement deleteCourse;
 
     public CreateCoursePopup clickCreateCourseButton() {
-        createCourseButton.click();
+        action.click(createCourseButton);
         return new CreateCoursePopup();
     }
+
+    public JoinCoursePopup clickJoinCourseButton() {
+        action.click(joinCourseButton);
+        return new JoinCoursePopup();
+    }
+
 
     public EditCoursePopup clickEditCourse(final String courseName) {
         WebElement courseActionsButton = driver.findElement(By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON,
@@ -35,8 +47,8 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
 
-        courseActionsButton.click();
-        editCourse.click();
+        action.click(courseActionsButton);
+        action.click(editCourse);
         return new EditCoursePopup();
     }
 
@@ -48,12 +60,19 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
 
-        courseActionsButton.click();
-        deleteCourse.click();
+        action.click(courseActionsButton);
+        action.click(deleteCourse);
         return new DeleteCoursePopup();
     }
 
     public String getSectionByName(final String courseName) {
-        return driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName))).getText();
+        WebElement sectionName =  driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName)));
+        return action.getText(sectionName);
+    }
+
+    public Course clickCourseLink(final  String courseName) {
+        WebElement courseLink =  driver.findElement(By.xpath(String.format(XPATH_COURSE_LINK, courseName)));
+        action.click(courseLink);
+        return new Course();
     }
 }

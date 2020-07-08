@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class Groups extends ViewList {
 
@@ -17,7 +17,7 @@ public class Groups extends ViewList {
     private WebElement createGroupButton;
 
     public CreateGroupPopup clickCreateGroupButton() {
-        createGroupButton.click();
+        action.click(createGroupButton);
         return new CreateGroupPopup();
     }
 
@@ -27,14 +27,15 @@ public class Groups extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", groupActionsButton);
 
-        wait.until(ExpectedConditions.visibilityOf(groupActionsButton));
-        groupActionsButton.click();
-        driver.findElement(By.xpath(String.format(SELECT_ACTIONS, groupName))).click();
+        action.click(groupActionsButton);
+        WebElement groupEditAction = driver.findElement(By.xpath(String.format(SELECT_ACTIONS, groupName)));
+        action.click(groupEditAction);
         return new EditGroupPopup();
     }
 
     public String getGroupByName(final String groupName) {
-        return driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName))).getText();
+        WebElement groupNameLabel =  driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName)));
+        return action.getText(groupNameLabel);
     }
 
 }
