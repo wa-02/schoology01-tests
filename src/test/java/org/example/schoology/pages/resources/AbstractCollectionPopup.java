@@ -18,16 +18,16 @@ public class AbstractCollectionPopup extends AbstractPage {
     protected WebElement submitButton;
 
 
-    public void fill(Map<String, String> collectionMap){
+    public void fill(final Map<String, String> collectionMap) {
         Map<String, Step> stepsMap = new HashMap<>();
         stepsMap.put("title", () -> setTitle(collectionMap.get("title")));
 
-        for(String keyField: collectionMap.keySet()){
+        for (String keyField: collectionMap.keySet()) {
             stepsMap.get(keyField).execute();
         }
     }
 
-    private void setTitle(final String title){
+    private void setTitle(final String title) {
         collectionTitleField.clear();
         collectionTitleField.sendKeys(title);
     }

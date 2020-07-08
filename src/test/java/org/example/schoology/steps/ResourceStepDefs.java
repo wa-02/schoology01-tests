@@ -1,9 +1,9 @@
 package org.example.schoology.steps;
 
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
@@ -33,7 +33,7 @@ public class ResourceStepDefs {
     }
 
     @And("I create a resource collection with:")
-    public void iCreateAResourceCollectionWith(Map<String, String> datatable) {
+    public void iCreateAResourceCollectionWith(final Map<String, String> datatable) {
         String menu = "Resources";
         resources = home.clickResourcesMenu(menu);
         addCollectionPopup = resources.clickAddCollection();
@@ -41,7 +41,7 @@ public class ResourceStepDefs {
     }
 
     @When("I share the {string} collection with {string}")
-    public void iShareTheCollectionWith(String collection, String instructorTwo) {
+    public void iShareTheCollectionWith(final String collection, final String instructorTwo) {
         shareSettingPopup = resources.clickShareCollection(collection);
         shareSettingPopup.searchTeacher(instructorTwo);
     }
@@ -53,7 +53,7 @@ public class ResourceStepDefs {
 
 
     @Then("I should see the {string} title collection")
-    public void iShouldSeeTheTitleCollection(String expectedCollection) {
+    public void iShouldSeeTheTitleCollection(final String expectedCollection) {
         Assert.assertEquals(expectedCollection, resources.getCollectionByName(expectedCollection));
     }
 

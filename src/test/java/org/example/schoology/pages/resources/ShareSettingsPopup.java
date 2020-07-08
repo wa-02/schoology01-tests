@@ -19,8 +19,9 @@ public class ShareSettingsPopup extends AbstractPage {
     @FindBy(xpath = "//input[@id=\"edit-submit-1\" and @value=\"Add People\"]")
     private WebElement addPeopleButton;
 
-    public Resources searchTeacher(String account){
-        insertNameTeacher.sendKeys(Environment.getInstance().getValue(String.format("credentials.%s.firstName", account)));
+    public Resources searchTeacher(final String account) {
+        insertNameTeacher.sendKeys(Environment.getInstance()
+                .getValue(String.format("credentials.%s.firstName", account)));
         searchTeacher.click();
         selectTeacher.click();
         addPeopleButton.click();
