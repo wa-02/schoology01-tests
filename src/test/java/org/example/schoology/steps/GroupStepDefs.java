@@ -3,8 +3,8 @@ package org.example.schoology.steps;
 import java.util.Map;
 
 import io.cucumber.java.en.And;
+import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
-import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.groups.CreateGroupPopup;
 import org.example.schoology.pages.groups.EditGroupPopup;
 import org.example.schoology.pages.groups.Group;
@@ -15,11 +15,12 @@ import org.testng.Assert;
 
 public class GroupStepDefs {
 
-    private Courses courses;
+    private ScenarioContext context;
 
     private final Groups groups;
 
-    public GroupStepDefs(final SharedDriver sharedDriver, final Groups groups) {
+    public GroupStepDefs(final SharedDriver sharedDriver, final ScenarioContext context, final Groups groups) {
+        this.context = context;
         this.groups = groups;
     }
 
@@ -30,12 +31,14 @@ public class GroupStepDefs {
         subMenu.clickViewListLink(menu);
         CreateGroupPopup createGroupPopup = this.groups.clickCreateGroupButton();
         Group group = createGroupPopup.create(datatable);
+        context.setContext("GroupKey", datatable.get("name"));
     }
 
     @And("I edit the {string} group with:")
     public void iEditTheGroupWith(final String name, final Map<String, String> datatable) {
         EditGroupPopup editGroupPopup = groups.clickEditGroup(name);
         editGroupPopup.edit(datatable);
+        context.setContext("GroupKey", datatable.get("name"));
     }
 
     @And("I should see a group with {string} as a name")
