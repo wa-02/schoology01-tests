@@ -13,4 +13,4 @@ Feature: Groups
     And I edit the "SeleniumWebDriver" group with:
       | name | SeleniumWebDriver updated AT|
     Then I should see the "SeleniumWebDriver updated AT has been saved." message
-    And I should see a group with "SeleniumWebDriver updated" as a name
+    And I should see a group with "SeleniumWebDriver updated AT" as a name
