@@ -23,9 +23,9 @@ public class ShareSettingsPopup extends AbstractPage {
     public Resources searchTeacher(final String account) {
         insertNameTeacher.sendKeys(Environment.getInstance()
                 .getValue(String.format("credentials.%s.firstName", account)));
-        searchTeacher.click();
-        selectTeacher.click();
-        addPeopleButton.click();
+        action.click(searchTeacher);
+        action.click(selectTeacher);
+        action.click(addPeopleButton);
         return new Resources();
     }
 }
