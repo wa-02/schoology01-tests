@@ -37,7 +37,7 @@ public class Resources extends ViewList {
 
     public String getCollectionByName(final String collectionName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"icon home\"]")));
-        return driver.findElement(By.xpath(String.format(COLLECTION_BY_NAME, collectionName))).getText();
+        return action.getText(By.xpath(String.format(COLLECTION_BY_NAME, collectionName)));
     }
 
     public DeleteResourceCollectionPopup clickDeleteCollection(final String collectionTitle) {
