@@ -52,8 +52,8 @@ public class ResourceStepDefs {
 
 
     @Then("I should see the {string} title collection")
-    public void iShouldSeeTheTitleCollection(final String expectedCollection) {
-        Assert.assertEquals(expectedCollection, resources.getCollectionByName(expectedCollection));
+    public void iShouldSeeTheTitleCollection(final String collectionTitle) {
+        Assert.assertEquals(collectionTitle, resources.getCollectionByName(collectionTitle));
     }
 
 }
