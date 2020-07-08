@@ -33,10 +33,10 @@ public class ResourceStepDefs {
 
     @And("I create a resource collection with:")
     public void iCreateAResourceCollectionWith(final Map<String, String> datatable) {
-        //String menu = "Resources";
         resources = home.clickResourcesMenu();
         addCollectionPopup = resources.clickAddCollection();
         resources = addCollectionPopup.create(datatable);
+        context.setContext("CollectionTitle", datatable.get("title"));
     }
 
     @When("I share the {string} collection with {string}")

@@ -1,5 +1,6 @@
 Feature: Resources
 
+  @deleteResourceCollection
   Scenario: Share a resource Collection to a School colleague
     Given I log in as "Instructor02" user
     And I create a resource collection with:

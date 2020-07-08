@@ -6,7 +6,7 @@ public class AddCollectionPopup extends AbstractCollectionPopup {
 
     public Resources create(final Map<String, String> collectionMap) {
         fill(collectionMap);
-        submitButton.click();
+        action.click(submitButton);
         return new Resources();
 
     }
