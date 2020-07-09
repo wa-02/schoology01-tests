@@ -5,10 +5,13 @@ import io.cucumber.java.Before;
 import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.DriverFactory;
+import org.example.schoology.pages.Login;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.DeleteCoursePopup;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.SubMenu;
+import org.example.schoology.pages.resources.DeleteResourceCollectionPopup;
+import org.example.schoology.pages.resources.Resources;
 
 public class CourseHooks {
 
@@ -38,6 +41,19 @@ public class CourseHooks {
         deleteCoursePopup.clickDeleteButton();
 
         // delete by Rest API (~3 milli seconds)
+    }
+
+    @After(value = "@deleteResourceCollection")
+    public void deleteResourceCollection() {
+
+        DriverFactory.getDriver().get("https://app.schoology.com");
+        Login login = new Login();
+        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
+
+        Resources resources = home.clickResourcesMenu();
+        DeleteResourceCollectionPopup deleteResourceCollectionPopup =
+                resources.clickDeleteCollection(context.getValue("CollectionTitle"));
+        deleteResourceCollectionPopup.clickDeleteButton();
     }
 
 }

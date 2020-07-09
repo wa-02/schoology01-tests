@@ -1,6 +1,7 @@
 package org.example.schoology.pages;
 
 import org.example.core.ui.AbstractPage;
+import org.example.schoology.pages.resources.Resources;
 import org.openqa.selenium.By;
 
 public class Home extends AbstractPage {
@@ -17,4 +18,8 @@ public class Home extends AbstractPage {
         return new SubMenu();
     }
 
+    public Resources clickResourcesMenu() {
+        action.click(By.xpath("//a[text()='Resources']"));
+        return new Resources();
+    }
 }
