@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class Groups extends ViewList {
@@ -44,6 +44,8 @@ public class Groups extends ViewList {
     }
 
     public DeletePopup clickDeleteGroup(final String groupName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
+                groupName))));
         WebElement groupActionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
                 groupName)));
 

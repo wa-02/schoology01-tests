@@ -3,14 +3,12 @@ package org.example.schoology.hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.example.core.Environment;
-import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.DriverFactory;
-import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
-import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.DeletePopup;
 import org.example.schoology.pages.groups.Groups;
+
 
 public class GroupHooks {
 
@@ -45,15 +43,14 @@ public class GroupHooks {
 
     @After(value = "@deleteGroup")
     public void deleteGroupAnyIstructor() {
-
-        DriverFactory.getDriver().get("https://app.schoology.com");
         deleteGroup();
 
     }
     private void deleteGroup() {
-        String menu = Internationalization.getInstance().getValue("menu_group");
-        SubMenu subMenu = new Home().clickMenu(menu);
-        subMenu.clickViewListLink(menu);
+        //String menu = Internationalization.getInstance().getValue("menu_group");
+        //SubMenu subMenu = new Home().clickMenu(menu);
+        //subMenu.clickViewListLink(menu);
+        DriverFactory.getDriver().get("https://app.schoology.com/groups");
         DeletePopup deleteGroupPopup = new Groups().clickDeleteGroup(context.getValue("GroupKey"));
         deleteGroupPopup.clickDeleteButton();
 
