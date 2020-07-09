@@ -1,6 +1,7 @@
 package org.example.schoology.pages.resources;
 
 import org.example.schoology.pages.ViewList;
+import org.example.schoology.pages.courses.AddResourceToCoursePopup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,23 @@ public class Resources extends ViewList {
 
     @FindBy(xpath = "//a[@class=\"collection-delete sExtlink-processed popups-processed\"]")
     private WebElement deleteCollectionButton;
+
+    @FindBy (xpath = "//img[@class='action-links-unfold-icon']//ancestor::div[@id='toolbar-add-wrapper']")
+    private WebElement addResourceButton;
+
+    @FindBy (xpath = "//li//child::a[text()=\"Add Test/Quiz\"]")
+    private WebElement addTestQuizButton;
+
+    public static final String RESOURCE_BY_NAME = "//a[text()='%s']/parent::td/following-sibling::td//child::div[@role='button']";
+
+    @FindBy (xpath = "//a[@class=\"action-add-course sExtlink-processed popups-processed\"]")
+    private WebElement addResoruceToCourseButton;
+
+    public AddTemplatePopup clickAddTestQuiz(){
+        addResourceButton.click();
+        addTestQuizButton.click();
+        return new AddTemplatePopup();
+    }
 
     public AddCollectionPopup clickAddCollection() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"icon home\"]")));
@@ -47,6 +65,12 @@ public class Resources extends ViewList {
         action.click(optionsCollectionButton);
         action.click(deleteCollectionButton);
         return new DeleteResourceCollectionPopup();
+    }
+
+    public AddResourceToCoursePopup clickAddResourceToCourse(final String resourceName, final String course) {
+        action.click(By.xpath(String.format(RESOURCE_BY_NAME, resourceName)));
+        action.click(addResoruceToCourseButton);
+        return new AddResourceToCoursePopup();
     }
 
 }

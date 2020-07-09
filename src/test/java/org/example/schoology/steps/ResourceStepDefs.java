@@ -9,7 +9,9 @@ import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
+import org.example.schoology.pages.SubMenuTemplate;
 import org.example.schoology.pages.resources.AddCollectionPopup;
+import org.example.schoology.pages.resources.AddTemplatePopup;
 import org.example.schoology.pages.resources.Resources;
 import org.example.schoology.pages.resources.ShareSettingsPopup;
 import org.junit.Assert;
@@ -28,6 +30,10 @@ public class ResourceStepDefs {
     private ShareSettingsPopup shareSettingPopup;
 
     private ScenarioContext context;
+
+    private AddTemplatePopup addTemplatePopup;
+
+    private SubMenuTemplate subMenuTemplate;
 
     public ResourceStepDefs(final SharedDriver sharedDriver, final ScenarioContext context, final Home home) {
         this.home = home;
@@ -71,4 +77,30 @@ public class ResourceStepDefs {
         Assert.assertEquals(collectionTitle, resources.getCollectionByName(collectionTitle));
     }
 
+
+
+    @And("I create a {string} resource with:")
+    public void iCreateAResourceWith(final Map<String, String> datatable) {
+        resources = new Home().clickResourcesMenu();
+        addTemplatePopup = resources.clickAddTestQuiz();
+        subMenuTemplate = addTemplatePopup.create(datatable);
+    }
+
+    @When("I add the {string} to the {string}")
+    public void iAddTheToThe(String testQuiz, String course) {
+
+
+    }
+
+    @And("I join to the course created")
+    public void iJoinToTheCourseCreated() {
+    }
+
+    @Then("I should see the resource shared with the course")
+    public void iShouldSeeTheResourceSharedWithTheCourse() {
+    }
+
+    @And("I should be able to open the quiz..")
+    public void iShouldBeAbleToOpenTheQuiz() {
+    }
 }
