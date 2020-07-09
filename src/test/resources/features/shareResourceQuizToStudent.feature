@@ -1,6 +1,6 @@
 Feature: Resources
 
-  Scenario: Share a resource Quiz add to a course with a Student
+  Scenario: Share a resource Quiz added to a course with a Student
     Given I log in as "Instructor01" user
     And I create a course with:
       | name    | TechCourse	    |
