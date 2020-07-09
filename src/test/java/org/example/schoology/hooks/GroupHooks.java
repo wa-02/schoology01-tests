@@ -47,9 +47,6 @@ public class GroupHooks {
 
     }
     private void deleteGroup() {
-        //String menu = Internationalization.getInstance().getValue("menu_group");
-        //SubMenu subMenu = new Home().clickMenu(menu);
-        //subMenu.clickViewListLink(menu);
         DriverFactory.getDriver().get("https://app.schoology.com/groups");
         DeletePopup deleteGroupPopup = new Groups().clickDeleteGroup(context.getValue("GroupKey"));
         deleteGroupPopup.clickDeleteButton();
