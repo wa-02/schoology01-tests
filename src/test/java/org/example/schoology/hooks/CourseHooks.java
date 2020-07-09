@@ -7,7 +7,7 @@ import org.example.core.ScenarioContext;
 import org.example.core.ui.DriverFactory;
 import org.example.schoology.pages.Login;
 import org.example.schoology.pages.courses.Courses;
-import org.example.schoology.pages.courses.DeleteCoursePopup;
+import org.example.schoology.pages.DeletePopup;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.resources.DeleteResourceCollectionPopup;
@@ -37,7 +37,7 @@ public class CourseHooks {
         String menu = Internationalization.getInstance().getValue("menu");
         SubMenu subMenu = new Home().clickMenu(menu);
         subMenu.clickViewListLink(menu);
-        DeleteCoursePopup deleteCoursePopup = new Courses().clickDeleteCourse(context.getValue("CourseKey"));
+        DeletePopup deleteCoursePopup = new Courses().clickDeleteCourse(context.getValue("CourseKey"));
         deleteCoursePopup.clickDeleteButton();
 
         // delete by Rest API (~3 milli seconds)
