@@ -2,7 +2,6 @@ package org.example.schoology.hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import org.example.core.Environment;
 import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.DriverFactory;
@@ -49,10 +48,7 @@ public class CourseHooks {
 
         DriverFactory.getDriver().get("https://app.schoology.com");
         Login login = new Login();
-        Home home = login.loginAs(Environment.getInstance()
-                        .getValue(String.format("credentials.%s.username", "Instructor02")),
-                Environment.getInstance()
-                        .getValue(String.format("credentials.%s.password", "Instructor02")));
+        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
 
         Resources resources = home.clickResourcesMenu();
         DeleteResourceCollectionPopup deleteResourceCollectionPopup =

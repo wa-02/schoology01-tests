@@ -16,7 +16,7 @@ public class Resources extends ViewList {
     @FindBy(css = "#collection-share-link")
     private WebElement shareButton;
 
-    @FindBy(css = "div[id=\"toolbar-options\"]")
+    @FindBy(css = "div[id='toolbar-options']")
     private WebElement optionsCollectionButton;
 
     @FindBy(xpath = "//a[@class=\"collection-delete sExtlink-processed popups-processed\"]")
@@ -43,6 +43,7 @@ public class Resources extends ViewList {
     public DeleteResourceCollectionPopup clickDeleteCollection(final String collectionTitle) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"icon home\"]")));
         action.click(By.xpath(String.format(COLLECTION_BY_NAME, collectionTitle)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title=\"View user profile.\"]")));
         action.click(optionsCollectionButton);
         action.click(deleteCollectionButton);
         return new DeleteResourceCollectionPopup();
