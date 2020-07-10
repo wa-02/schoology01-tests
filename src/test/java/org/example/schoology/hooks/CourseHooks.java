@@ -35,11 +35,15 @@ public class CourseHooks {
         // delete by UI (~10 sec)
         DriverFactory.getDriver().get("https://app.schoology.com");
         String menu = Internationalization.getInstance().getValue("menu");
+
         SubMenu subMenu = new Home().clickMenu(menu);
         subMenu.clickViewListLink(menu);
-        DeletePopup deleteCoursePopup = new Courses().clickDeleteCourse(context.getValue("CourseKey"));
+        Courses courses = new Courses();
+        DeletePopup deleteCoursePopup = courses.clickDeleteCourse(context.getValue("CourseKey"));
         deleteCoursePopup.clickDeleteButton();
 
+        deleteCoursePopup = courses.clickDeleteInactiveCourse(context.getValue("CourseKey"));
+        deleteCoursePopup.clickDeleteButton();
         // delete by Rest API (~3 milli seconds)
     }
 
