@@ -23,6 +23,11 @@ public class Course extends AbstractPage {
     @FindBy(css = "div.course-member-left-menu")
     private WebElement membersButton;
 
+    @FindBy(css = "div.course-materials-left-menu")
+    private WebElement materialsButton;
+
+
+
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
@@ -35,5 +40,10 @@ public class Course extends AbstractPage {
     public Members clickMembers() {
         membersButton.click();
         return new Members();
+    }
+
+    public Materials clickMaterials() {
+        materialsButton.click();
+        return new Materials();
     }
 }

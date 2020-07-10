@@ -1,6 +1,7 @@
 package org.example.schoology.steps;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -14,8 +15,10 @@ import org.example.schoology.pages.Login;
 import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
+import org.example.schoology.pages.courses.CreateFolderPopup;
 import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.courses.JoinCoursePopup;
+import org.example.schoology.pages.courses.Materials;
 import org.example.schoology.pages.courses.Members;
 import org.example.schoology.pages.groups.Groups;
 import org.example.schoology.pages.Home;
@@ -107,6 +110,46 @@ public class CourseStepDefs {
         members.clickMembers();
         members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
                 Environment.getInstance().getValue(String.format("credentials.%s.lastName", member)));
+
+    }
+
+    @And("{string} is my student")
+    public void isMyStudent(String account) {
+        iHaveTheCourseCode();
+        useTheAccessCode(account, "AccessCode");
+    }
+
+    @When("I as {string} user of {string} course create a {string} for my class")
+    public void iAsUserOfCourseCreateAForMyClass(final String account, final String subject, final String material,
+                                                 final Map<String, String> datatable) {
+        // Login
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        Course course = courses.clickCourseLink(subject);
+
+        Materials materials = course.clickMaterials();
+        CreateFolderPopup createFolderPopup = materials.clickAddFolder();
+        createFolderPopup.createFolder(datatable);
+    }
+
+
+    @Then("{string} should have a {string} folder as a material of the {string} class.")
+    public void shouldHaveAFolderAsAMaterialOfTheClass(String account, String folderName, String subject) {
+        // Login
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        Course course = courses.clickCourseLink(subject);
+
+        Materials materials = course.clickMaterials();
+
 
     }
 }

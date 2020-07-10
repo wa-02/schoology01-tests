@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/addMaterialsForACourse.feature",
         glue = "org.example.schoology",
         plugin = {"pretty"}
 )
