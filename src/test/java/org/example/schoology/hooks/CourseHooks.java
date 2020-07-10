@@ -43,17 +43,4 @@ public class CourseHooks {
         // delete by Rest API (~3 milli seconds)
     }
 
-    @After(value = "@deleteResourceCollection")
-    public void deleteResourceCollection() {
-
-        DriverFactory.getDriver().get("https://app.schoology.com");
-        Login login = new Login();
-        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
-
-        Resources resources = home.clickResourcesMenu();
-        DeleteResourceCollectionPopup deleteResourceCollectionPopup =
-                resources.clickDeleteCollection(context.getValue("CollectionTitle"));
-        deleteResourceCollectionPopup.clickDeleteButton();
-    }
-
 }

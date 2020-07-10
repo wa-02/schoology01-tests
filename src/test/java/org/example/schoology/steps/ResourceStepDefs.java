@@ -79,15 +79,17 @@ public class ResourceStepDefs {
 
 
 
-    @And("I create a {string} resource with:")
+    @And("I create a Quiz resource with:")
     public void iCreateAResourceWith(final Map<String, String> datatable) {
         resources = new Home().clickResourcesMenu();
         addTemplatePopup = resources.clickAddTestQuiz();
         subMenuTemplate = addTemplatePopup.create(datatable);
+
     }
 
     @When("I add the {string} to the {string}")
     public void iAddTheToThe(String testQuiz, String course) {
+         subMenuTemplate.clickResourcesMenu();
 
 
     }

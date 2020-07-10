@@ -13,13 +13,16 @@ public class Home extends AbstractPage {
      * @param menuName {courses or groups}
      * @return {@link SubMenu}
      */
+
+    public static final String RESOURCE_PAGE = "//a[text()='Resources']";
+
     public SubMenu clickMenu(final String menuName) {
         action.click(By.xpath(String.format("//span[text()='%s']/parent::button", menuName)));
         return new SubMenu();
     }
 
     public Resources clickResourcesMenu() {
-        action.click(By.xpath("//a[text()='Resources']"));
+        action.click(By.xpath(RESOURCE_PAGE));
         return new Resources();
     }
 }
