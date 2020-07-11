@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.core.Environment;
+import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
@@ -17,7 +18,11 @@ public class CommonStepDefs {
 
     private SubMenu subMenu;
 
-    public CommonStepDefs(final SharedDriver sharedDriver) {
+    private ScenarioContext context;
+
+    public CommonStepDefs(final SharedDriver sharedDriver, final ScenarioContext context) {
+
+        this.context = context;
 
     }
 
