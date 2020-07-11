@@ -67,7 +67,7 @@ public class Resources extends ViewList {
         return new DeleteResourceCollectionPopup();
     }
 
-    public AddResourceToCoursePopup clickAddResourceToCourse(final String resourceName, final String course) {
+    public AddResourceToCoursePopup clickAddResourceToCourse(final String resourceName) {
         action.click(By.xpath(String.format(RESOURCE_BY_NAME, resourceName)));
         action.click(addResoruceToCourseButton);
         return new AddResourceToCoursePopup();

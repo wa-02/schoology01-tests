@@ -7,10 +7,10 @@ Feature: Resources
       | section | New Section       |
       | area    | Technology        |
       | level   | Graduate          |
+    And I have the course code
     And I create a Quiz resource with:
       | name       | Quiz01   |
-      | points     | 75       |
-    And I have the course code
+      | points     |    75    |
     When I add the "Quiz01" to the "TechCourse"
     And I log in as "Student01" user
     And I join to the course created

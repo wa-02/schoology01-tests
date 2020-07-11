@@ -14,7 +14,7 @@ public class AbstractResourcePopup extends AbstractPage {
     @FindBy(css = "#edit-title")
     protected WebElement collectionTitleField;
 
-    @FindBy(css = "input[value=\"Create\"]")
+    @FindBy(css = "input[id=edit-submit][value=\"Submit\"]")
     protected WebElement submitButton;
 
     @FindBy(css = "#edit-template-fields-title")
@@ -27,8 +27,8 @@ public class AbstractResourcePopup extends AbstractPage {
     public void fill(final Map<String, String> collectionMap) {
         Map<String, Step> stepsMap = new HashMap<>();
         stepsMap.put("title", () -> setTitle(collectionMap.get("title")));
-        stepsMap.put("nameQuiz", () -> setNameQuiz(collectionMap.get("nameQuiz")));
-        stepsMap.put("maxPointQuiz", () -> setMaxPointQuiz(collectionMap.get("maxPointQuiz")));
+        stepsMap.put("name", () -> setNameQuiz(collectionMap.get("name")));
+        stepsMap.put("points", () -> setMaxPointQuiz(collectionMap.get("points")));
 
 
         for (String keyField: collectionMap.keySet()) {

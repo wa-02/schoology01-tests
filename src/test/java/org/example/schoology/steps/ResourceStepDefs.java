@@ -5,11 +5,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.core.Environment;
+import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
+import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.SubMenuTemplate;
+import org.example.schoology.pages.courses.AddResourceToCoursePopup;
 import org.example.schoology.pages.resources.AddCollectionPopup;
 import org.example.schoology.pages.resources.AddTemplatePopup;
 import org.example.schoology.pages.resources.Resources;
@@ -25,9 +28,13 @@ public class ResourceStepDefs {
 
     private Home home;
 
+    private SubMenu subMenu;
+
     private AddCollectionPopup addCollectionPopup;
 
     private ShareSettingsPopup shareSettingPopup;
+
+    private AddResourceToCoursePopup addResourceToCoursePopup;
 
     private ScenarioContext context;
 
@@ -84,18 +91,23 @@ public class ResourceStepDefs {
         resources = new Home().clickResourcesMenu();
         addTemplatePopup = resources.clickAddTestQuiz();
         subMenuTemplate = addTemplatePopup.create(datatable);
-
     }
 
     @When("I add the {string} to the {string}")
     public void iAddTheToThe(String testQuiz, String course) {
-         subMenuTemplate.clickResourcesMenu();
-
-
+         resources = subMenuTemplate.clickResourcesMenu();
+         addResourceToCoursePopup = resources.clickAddResourceToCourse(testQuiz);
+         resources = addResourceToCoursePopup.addCourse(course);
     }
 
     @And("I join to the course created")
     public void iJoinToTheCourseCreated() {
+        String menu = Internationalization.getInstance().getValue("menu");
+        subMenu = home.clickMenu(menu);
+        subMenu.clickViewListLink(menu);
+
+
+
     }
 
     @Then("I should see the resource shared with the course")
