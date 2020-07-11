@@ -1,10 +1,12 @@
 package org.example.schoology.pages.groups;
 
+import org.example.schoology.pages.DeletePopup;
 import org.example.schoology.pages.ViewList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class Groups extends ViewList {
@@ -15,6 +17,12 @@ public class Groups extends ViewList {
 
     @FindBy(css = "a.create-group")
     private WebElement createGroupButton;
+
+    @FindBy(css = "ul[style='display: block;'] .action-delete")
+    private WebElement deleteGroup;
+
+    @FindBy(css = "a.groups-enroll")
+    private WebElement joinGroupButton;
 
     public CreateGroupPopup clickCreateGroupButton() {
         action.click(createGroupButton);
@@ -36,6 +44,48 @@ public class Groups extends ViewList {
     public String getGroupByName(final String groupName) {
         WebElement groupNameLabel =  driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName)));
         return action.getText(groupNameLabel);
+    }
+
+    public DeletePopup clickDeleteGroup(final String groupName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
+                groupName))));
+        WebElement groupActionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON,
+                groupName)));
+
+        // Scroll
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", groupActionsButton);
+
+        action.click(groupActionsButton);
+        action.click(deleteGroup);
+        return new DeletePopup();
+    }
+
+    public JoinGroupPopup clickJoinGroupButton() {
+        action.click(joinGroupButton);
+        return new JoinGroupPopup();
+    }
+
+
+    public boolean existGroupByName(final String groupName) {
+        boolean exist = false;
+        if (!driver.findElements(By.xpath(String.format(GROUP_BY_NAME, groupName))).isEmpty()) {
+            exist = true;
+        }
+        return exist;
+    }
+
+
+    public void clickDetailGroupByName(final String groupName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(GROUP_BY_NAME,
+                groupName))));
+        WebElement groupDetailLink = driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName)));
+        // Scroll
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", groupDetailLink);
+
+        wait.until(ExpectedConditions.visibilityOf(groupDetailLink));
+        groupDetailLink.click();
     }
 
 }
