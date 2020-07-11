@@ -16,4 +16,4 @@ Feature: A description
       | description	| Technology   |
       | date	    | 7/07/20      |
       | availability| Published    |
-    Then "Student01" should have a "Home works" folder as a material of the "Physical 101" class.
+#    Then "Student01" should have a "Home works" folder as a material of the "Physical 101" class.
