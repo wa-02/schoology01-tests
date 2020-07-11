@@ -14,6 +14,8 @@ public class Home extends AbstractPage {
      * @return {@link SubMenu}
      */
     public SubMenu clickMenu(final String menuName) {
+        if(menuName == "Courses")
+            new courseAvailableAudioAndVideoItemsPopup().closeCourseAvailableItemsPopup();
         action.click(By.xpath(String.format("//span[text()='%s']/parent::button", menuName)));
         return new SubMenu();
     }
