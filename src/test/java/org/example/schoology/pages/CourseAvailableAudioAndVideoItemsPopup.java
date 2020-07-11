@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.concurrent.TimeUnit;
 
-public class courseAvailableAudioAndVideoItemsPopup extends AbstractPage {
+public class CourseAvailableAudioAndVideoItemsPopup extends AbstractPage {
 
     // This info should come from config file.
     public static final int DEFAULT_IMPLICIT_TIMEOUT = 15;

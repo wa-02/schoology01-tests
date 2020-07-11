@@ -1,6 +1,5 @@
 package org.example.schoology.pages.courses;
 
-import org.example.core.ui.AbstractPage;
 import org.example.schoology.pages.AbstractDetail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

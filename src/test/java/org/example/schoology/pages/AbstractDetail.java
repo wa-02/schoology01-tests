@@ -12,7 +12,6 @@ public abstract class AbstractDetail extends AbstractPage {
     @FindBy(css = "#edit-submit")
     protected WebElement submitButton;
 
-
     public String getAccessCode() {
         return accessCode.getText();
     }
