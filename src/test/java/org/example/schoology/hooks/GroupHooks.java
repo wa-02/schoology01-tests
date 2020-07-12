@@ -25,14 +25,14 @@ public class GroupHooks {
     }
 
 
-    @After(value = "@deleteGroupInstructor")
+    @After(value = "@deleteGroupInstructor1")
     public void deleteGroupFirstInstructor() {
         // What is the course name for deleting ?
 
         // delete by UI (~10 sec)
         //Delete a curse when a scenario works with more than 1 instructor
         //it is required to login again after completing an scenario
-        String account = context.getValue("InstructorName");
+        String account = "Instructor01";
         Login login = new Login();
 
         login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),

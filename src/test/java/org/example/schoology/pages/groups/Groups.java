@@ -21,9 +21,6 @@ public class Groups extends ViewList {
     @FindBy(css = "ul[style='display: block;'] .action-delete")
     private WebElement deleteGroup;
 
-    @FindBy(css = "a.groups-enroll")
-    private WebElement joinGroupButton;
-
     public CreateGroupPopup clickCreateGroupButton() {
         action.click(createGroupButton);
         return new CreateGroupPopup();
@@ -59,33 +56,6 @@ public class Groups extends ViewList {
         action.click(groupActionsButton);
         action.click(deleteGroup);
         return new DeletePopup();
-    }
-
-    public JoinGroupPopup clickJoinGroupButton() {
-        action.click(joinGroupButton);
-        return new JoinGroupPopup();
-    }
-
-
-    public boolean existGroupByName(final String groupName) {
-        boolean exist = false;
-        if (!driver.findElements(By.xpath(String.format(GROUP_BY_NAME, groupName))).isEmpty()) {
-            exist = true;
-        }
-        return exist;
-    }
-
-
-    public void clickDetailGroupByName(final String groupName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(GROUP_BY_NAME,
-                groupName))));
-        WebElement groupDetailLink = driver.findElement(By.xpath(String.format(GROUP_BY_NAME, groupName)));
-        // Scroll
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", groupDetailLink);
-
-        wait.until(ExpectedConditions.visibilityOf(groupDetailLink));
-        groupDetailLink.click();
     }
 
 }
