@@ -12,9 +12,16 @@ public class Materials extends AbstractPage {
     @FindBy(css = "li.action-create-folder")
     private WebElement addFolderButton;
 
+    @FindBy(css = ".folder-title")
+    private WebElement folderNameLabel;
+
+
     public CreateFolderPopup clickAddFolder() {
         action.click(addMaterialsButton);
         action.click(addFolderButton);
         return new CreateFolderPopup();
+    }
+    public String getFolder() {
+        return folderNameLabel.getText();
     }
 }

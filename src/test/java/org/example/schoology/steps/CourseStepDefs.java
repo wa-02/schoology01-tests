@@ -1,7 +1,6 @@
 package org.example.schoology.steps;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -106,6 +105,7 @@ public class CourseStepDefs {
         subMenu = home.clickMenu("Courses");
         subMenu.clickViewListLink("Courses");
         Course course = courses.clickCourseLink(subject);
+
         Members members = course.clickMembers();
         members.clickMembers();
         members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
@@ -137,19 +137,21 @@ public class CourseStepDefs {
     }
 
 
-    @Then("{string} should have a {string} folder as a material of the {string} class.")
-    public void shouldHaveAFolderAsAMaterialOfTheClass(String account, String folderName, String subject) {
+    @Then("{string} should have a {string} folder in {string}'s {string} class.")
+    public void shouldHaveAFolderInSClass(String account1, String folderName, String account2, String subject) {
         // Login
         Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account1)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account1)));
 
         subMenu = home.clickMenu("Courses");
         subMenu.clickViewListLink("Courses");
         Course course = courses.clickCourseLink(subject);
 
         Materials materials = course.clickMaterials();
+        Assert.assertEquals(materials.getFolder(), folderName);
 
-
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account2)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account2)));
     }
 }

@@ -1,19 +1,19 @@
 # new feature
 # Tags: optional
 
-Feature: A description
+Feature: Add Material for a course
   @deleteCourse
-  Scenario: A scenario
+  Scenario: Verify that an student can show a folder create for a instructor
     Given I am a "Instructor01" of:
       | name    | Physical 101 |
       | section | New Section  |
       | area    | Technology   |
       | level   | Graduate     |
-    And "Student01" is my student
+    And "Student02" is my student
     When I as "Instructor01" user of "Physical 101" course create a "Folder" for my class
       | title   	| Home works   |
       | color   	| red		   |
       | description	| Technology   |
-      | date	    | 7/07/20      |
+#      | date	    | 7/07/20      |  TODO: Popup date is not a webElement constant
       | availability| Published    |
-#    Then "Student01" should have a "Home works" folder as a material of the "Physical 101" class.
+    Then "Student02" should have a "Home works" folder in "Instructor01"'s "Physical 101" class.

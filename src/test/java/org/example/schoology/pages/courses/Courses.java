@@ -10,13 +10,13 @@ import org.openqa.selenium.support.FindBy;
 public class Courses extends ViewList {
 
     public static final String XPATH_COURSE_ACTIONS_BUTTON =
-            "//span[text()='%s']/ancestor::li//div[@class='action-links-unfold ']";
+            "//span[text()='%s']/ancestor::li//div[@href='#']";
 
     public static final String XPATH_SECTION_BY_NAME =
             "//span[text()='%s']/parent::p/parent::li//a[@class='sExtlink-processed']";
 
     public static final String XPATH_COURSE_LINK =
-            "//span[text()='%s']/ancestor::li//a[@class='sExtlink-processed']";
+            "//span[text()='%s']/ancestor::li//div[@class='sections-list']//a[@class='sExtlink-processed']";
 
     public static final String XPATH_DELETE_BUTTON =
             "//span[text()='%s']/parent::p//a";
