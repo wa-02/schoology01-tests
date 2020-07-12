@@ -3,15 +3,12 @@ package org.example.schoology.pages.courses;
 import org.example.core.ui.AbstractPage;
 import org.example.schoology.pages.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class CreateFolderPopup extends AbstractPage {
     private final By boldButton = By.cssSelector("#edit-description_bold");
@@ -33,7 +30,7 @@ public class CreateFolderPopup extends AbstractPage {
     private WebElement dateButton;
 
     @FindBy(css = ".form-select")
-    private WebElement AvailabilityDropDown;
+    private WebElement availabilityDropDown;
 
     @FindBy(css = "#edit-submit")
     protected WebElement submitButton;
@@ -72,7 +69,7 @@ public class CreateFolderPopup extends AbstractPage {
     }
 
     public void selectAvailability(final String availability) {
-        Select subjectArea = new Select(AvailabilityDropDown);
+        Select subjectArea = new Select(availabilityDropDown);
         subjectArea.selectByVisibleText(availability);
     }
 

@@ -114,7 +114,7 @@ public class CourseStepDefs {
     }
 
     @And("{string} is my student")
-    public void isMyStudent(String account) {
+    public void isMyStudent(final String account) {
         iHaveTheCourseCode();
         useTheAccessCode(account, "AccessCode");
     }
@@ -138,7 +138,8 @@ public class CourseStepDefs {
 
 
     @Then("{string} should have a {string} folder in {string}'s {string} class.")
-    public void shouldHaveAFolderInSClass(String account1, String folderName, String account2, String subject) {
+    public void shouldHaveAFolderInSClass(final String account1, final String folderName, final String account2,
+                                          final String subject) {
         // Login
         Login login = new Login();
         home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account1)),

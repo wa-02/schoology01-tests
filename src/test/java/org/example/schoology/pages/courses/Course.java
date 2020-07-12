@@ -26,8 +26,6 @@ public class Course extends AbstractPage {
     @FindBy(css = "div.course-materials-left-menu")
     private WebElement materialsButton;
 
-
-
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));

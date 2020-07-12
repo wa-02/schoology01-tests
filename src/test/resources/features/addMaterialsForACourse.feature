@@ -3,7 +3,7 @@
 
 Feature: Add Material for a course
   @deleteCourse
-  Scenario: Verify that an student can show a folder create for a instructor
+  Scenario: Verify that an student can show an folder create for a instructor
     Given I am a "Instructor01" of:
       | name    | Physical 101 |
       | section | New Section  |
