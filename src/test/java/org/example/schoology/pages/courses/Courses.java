@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Courses extends ViewList {
 
@@ -71,17 +72,21 @@ public class Courses extends ViewList {
     }
 
     public DeletePopup clickDeleteInactiveCourse(final String courseName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(XPATH_DELETE_BUTTON, courseName))));
         WebElement courseDeleteButton = driver.findElement(By.xpath(String.format(XPATH_DELETE_BUTTON, courseName)));
 
         // Scroll
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseDeleteButton);
 
-        courseDeleteButton.click();
+        action.click(courseDeleteButton);
         return new DeletePopup();
     }
 
     public String getSectionByName(final String courseName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName))));
         WebElement sectionName =  driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName)));
         return action.getText(sectionName);
     }
