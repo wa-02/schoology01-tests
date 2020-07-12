@@ -25,14 +25,15 @@ public class GroupHooks {
     }
 
 
-    @After(value = "@deleteGroupInstructor1")
+
+    @After(value = "@deleteGroupInstructor")
     public void deleteGroupFirstInstructor() {
         // What is the course name for deleting ?
 
         // delete by UI (~10 sec)
         //Delete a curse when a scenario works with more than 1 instructor
         //it is required to login again after completing an scenario
-        String account = "Instructor01";
+        String account = context.getValue("InstructorName");
         Login login = new Login();
 
         login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
@@ -42,7 +43,7 @@ public class GroupHooks {
     }
 
     @After(value = "@deleteGroup")
-    public void deleteGroupAnyIstructor() {
+    public void deleteGroupAnyInstructor() {
         deleteGroup();
 
     }
@@ -51,8 +52,7 @@ public class GroupHooks {
         DeletePopup deleteGroupPopup = new Groups().clickDeleteGroup(context.getValue("GroupKey"));
         deleteGroupPopup.clickDeleteButton();
 
-        // delete by Rest API (~3 milli seconds)
-
     }
+
 
 }
