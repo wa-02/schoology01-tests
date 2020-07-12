@@ -13,12 +13,10 @@ public class Members extends AbstractPage {
     private WebElement fullNameText;
 
     public void clickMembers() {
-        action.click(membersTab);
-
+        membersTab.click();
     }
 
     public void searchStudent(final String firstName, final String lastName) {
-        String fullName = action.getText(fullNameText);
-        Assert.assertEquals(fullName, firstName + " " + lastName);
+        Assert.assertEquals(fullNameText.getText(), firstName + " " + lastName);
     }
 }
