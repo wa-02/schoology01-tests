@@ -14,5 +14,6 @@ Feature: Add Material for a course
       | title   	| Home works   |
       | color   	| red		   |
       | description	| Technology   |
+#      | date	    | 7/07/20      |  TODO: Popup date is not a webElement constant
       | availability| Published    |
     Then "Student02" should have a "Home works" folder in "Instructor01"'s "Physical 101" class.

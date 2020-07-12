@@ -15,7 +15,7 @@ public class CreateFolderPopup extends AbstractPage {
 
 
     public static final String XPATH_FOLDER_COLOR =
-            "//li[@class='s-js-color-selector-list-item']//div[@data-color='%s']";
+            "//div[@data-color='%s']";
 
     @FindBy(css = "#edit-title")
     private WebElement titleTextField;
