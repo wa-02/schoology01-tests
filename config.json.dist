@@ -14,6 +14,42 @@
       "username": "",
       "password": ""
     },
+    "Instructor03": {
+      "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
+    "Instructor04": {
+      "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
+    "Instructor05": {
+      "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
+    "Instructor06": {
+      "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
+    "Instructor07": {
+     "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
+    "Instructor08": {
+      "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
     "Student01": {
       "firstName": "",
       "lastName": "",
@@ -21,6 +57,12 @@
       "password": ""
     },
     "Student02": {
+      "firstName": "",
+      "lastName": "",
+      "username": "",
+      "password": ""
+    },
+    "Student03": {
       "firstName": "",
       "lastName": "",
       "username": "",
