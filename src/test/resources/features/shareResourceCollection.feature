@@ -7,6 +7,8 @@ Feature: Resources
       | title | RCollectionName01 |
     When I share the "RCollectionName01" collection with "Instructor03"
     And I log in as "Instructor03" user
+	@FindBy(css="")
+	private WebElement webElement;
     And I navigate to Resources
     Then I should see the "RCollectionName01" title collection
 

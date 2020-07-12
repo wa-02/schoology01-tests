@@ -39,6 +39,8 @@ public class Resources extends ViewList {
 
     public String getCollectionByName(final String collectionName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()=\"Shared by Others\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(COLLECTION_BY_NAME, collectionName))));
         return action.getText(driver.findElement(By.xpath(String.format(COLLECTION_BY_NAME, collectionName))));
     }
 
