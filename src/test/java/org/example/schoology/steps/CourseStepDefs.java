@@ -14,8 +14,10 @@ import org.example.schoology.pages.Login;
 import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
+import org.example.schoology.pages.courses.CreateFolderPopup;
 import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.courses.JoinCoursePopup;
+import org.example.schoology.pages.courses.Materials;
 import org.example.schoology.pages.courses.Members;
 import org.example.schoology.pages.groups.Groups;
 import org.example.schoology.pages.Home;
@@ -103,10 +105,54 @@ public class CourseStepDefs {
         subMenu = home.clickMenu("Courses");
         subMenu.clickViewListLink("Courses");
         Course course = courses.clickCourseLink(subject);
+
         Members members = course.clickMembers();
         members.clickMembers();
         members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
                 Environment.getInstance().getValue(String.format("credentials.%s.lastName", member)));
 
+    }
+
+    @And("{string} is my student")
+    public void isMyStudent(final String account) {
+        iHaveTheCourseCode();
+        useTheAccessCode(account, "AccessCode");
+    }
+
+    @When("I as {string} user of {string} course create a {string} for my class")
+    public void iAsUserOfCourseCreateAForMyClass(final String account, final String subject, final String material,
+                                                 final Map<String, String> datatable) {
+        // Login
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        Course course = courses.clickCourseLink(subject);
+
+        Materials materials = course.clickMaterials();
+        CreateFolderPopup createFolderPopup = materials.clickAddFolder();
+        createFolderPopup.createFolder(datatable);
+    }
+
+
+    @Then("{string} should have a {string} folder in {string}'s {string} class.")
+    public void shouldHaveAFolderInSClass(final String account1, final String folderName, final String account2,
+                                          final String subject) {
+        // Login
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account1)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account1)));
+
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        Course course = courses.clickCourseLink(subject);
+
+        Materials materials = course.clickMaterials();
+        Assert.assertEquals(materials.getFolder(), folderName);
+
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account2)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account2)));
     }
 }
