@@ -79,7 +79,7 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseDeleteButton);
 
-        courseDeleteButton.click();
+        action.click(courseDeleteButton);
         return new DeletePopup();
     }
 
