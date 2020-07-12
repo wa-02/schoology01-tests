@@ -14,7 +14,7 @@ import org.example.schoology.pages.Login;
 import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
-import org.example.schoology.pages.courses.CreateFolderPopup;
+import org.example.schoology.pages.courses.CreateMaterialPopup;
 import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.courses.JoinCoursePopup;
 import org.example.schoology.pages.courses.Materials;
@@ -132,13 +132,13 @@ public class CourseStepDefs {
         Course course = courses.clickCourseLink(subject);
 
         Materials materials = course.clickMaterials();
-        CreateFolderPopup createFolderPopup = materials.clickAddFolder();
-        createFolderPopup.createFolder(datatable);
+        CreateMaterialPopup createMaterialPopup = materials.clickAddMaterials(material);
+        createMaterialPopup.createMaterial(datatable);
     }
 
 
-    @Then("{string} should have a {string} folder in {string}'s {string} class.")
-    public void shouldHaveAFolderInSClass(final String account1, final String folderName, final String account2,
+    @Then("{string} should have a {string} material in {string}'s {string} class.")
+    public void shouldHaveAFolderInSClass(final String account1, final String materialName, final String account2,
                                           final String subject) {
         // Login
         Login login = new Login();
@@ -150,7 +150,7 @@ public class CourseStepDefs {
         Course course = courses.clickCourseLink(subject);
 
         Materials materials = course.clickMaterials();
-        Assert.assertEquals(materials.getFolder(), folderName);
+        Assert.assertEquals(materials.getMaterial(), materialName);
 
         home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account2)),
                 Environment.getInstance().getValue(String.format("credentials.%s.password", account2)));

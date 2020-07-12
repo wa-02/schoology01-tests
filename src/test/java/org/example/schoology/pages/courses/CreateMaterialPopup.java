@@ -10,12 +10,13 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateFolderPopup extends AbstractPage {
+public class CreateMaterialPopup extends AbstractPage {
     private final By boldButton = By.cssSelector("#edit-description_bold");
 
+    public static final String XPATH_FOLDER_COLOR ="//div[@data-color='%s']";
 
-    public static final String XPATH_FOLDER_COLOR =
-            "//div[@data-color='%s']";
+    @FindBy(css = "#edit-title")
+    private WebElement nameTextField;
 
     @FindBy(css = "#edit-title")
     private WebElement titleTextField;
@@ -32,20 +33,32 @@ public class CreateFolderPopup extends AbstractPage {
     @FindBy(css = ".form-select")
     private WebElement availabilityDropDown;
 
+    @FindBy(css = "#edit-grading-category-id")
+    private WebElement categoryDropDown;
+
+    @FindBy(css = "#edit-new-category")
+    private WebElement categoryTextField;
+
     @FindBy(css = "#edit-submit")
     protected WebElement submitButton;
 
     public void fill(final Map<String, String> folderMap) {
         Map<String, Step> stepsMap = new HashMap<>();
+        stepsMap.put("name", () -> setName(folderMap.get("name")));
         stepsMap.put("title", () -> setTitle(folderMap.get("title")));
         stepsMap.put("color", () -> setColor(folderMap.get("color")));
         stepsMap.put("description", () -> setDescription(folderMap.get("description")));
         stepsMap.put("date", () -> setDate(folderMap.get("date")));
         stepsMap.put("availability", () -> selectAvailability(folderMap.get("availability")));
+        stepsMap.put("category", () -> selectCategory(folderMap.get("category")));
 
         for (final String keyField : folderMap.keySet()) {
             stepsMap.get(keyField).execute();
         }
+    }
+
+    public void setName(final String title) {
+        nameTextField.sendKeys(title);
     }
 
     public void setTitle(final String title) {
@@ -73,7 +86,13 @@ public class CreateFolderPopup extends AbstractPage {
         subjectArea.selectByVisibleText(availability);
     }
 
-    public Course createFolder(final Map<String, String> folderMap) {
+    private void selectCategory(String category) {
+        Select subjectArea = new Select(categoryDropDown);
+        subjectArea.selectByVisibleText("(Create new grading category)");
+        categoryTextField.sendKeys(category);
+    }
+
+    public Course createMaterial(final Map<String, String> folderMap) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(boldButton));
         fill(folderMap);
         submitButton.submit();
