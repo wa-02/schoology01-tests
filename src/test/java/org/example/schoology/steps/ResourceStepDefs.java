@@ -12,7 +12,11 @@ import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
 import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.SubMenuTemplate;
-import org.example.schoology.pages.courses.AddResourceToCoursePopup;
+import org.example.schoology.pages.courses.ImportFromResourcesPopup;
+import org.example.schoology.pages.courses.ImportResourcePopup;
+import org.example.schoology.pages.courses.Course;
+import org.example.schoology.pages.courses.Courses;
+import org.example.schoology.pages.courses.JoinCoursePopup;
 import org.example.schoology.pages.resources.AddCollectionPopup;
 import org.example.schoology.pages.resources.AddTemplatePopup;
 import org.example.schoology.pages.resources.Resources;
@@ -30,17 +34,21 @@ public class ResourceStepDefs {
 
     private SubMenu subMenu;
 
+    private Course course;
+
     private AddCollectionPopup addCollectionPopup;
 
     private ShareSettingsPopup shareSettingPopup;
-
-    private AddResourceToCoursePopup addResourceToCoursePopup;
 
     private ScenarioContext context;
 
     private AddTemplatePopup addTemplatePopup;
 
     private SubMenuTemplate subMenuTemplate;
+
+    private ImportResourcePopup importResourcePopup;
+
+    private ImportFromResourcesPopup importFromResourcePopup;
 
     public ResourceStepDefs(final SharedDriver sharedDriver, final ScenarioContext context, final Home home) {
         this.home = home;
@@ -93,11 +101,15 @@ public class ResourceStepDefs {
         subMenuTemplate = addTemplatePopup.create(datatable);
     }
 
-    @When("I add the {string} to the {string}")
-    public void iAddTheToThe(String testQuiz, String course) {
-         resources = subMenuTemplate.clickResourcesMenu();
-         addResourceToCoursePopup = resources.clickAddResourceToCourse(testQuiz);
-         resources = addResourceToCoursePopup.addCourse(course);
+    @When("I add the {string} to the course created")
+    public void iAddTheToThe(final String testQuiz) {
+         String menu = Internationalization.getInstance().getValue("menu");
+         subMenu = subMenuTemplate.clickMenu(menu);
+         subMenu.clickViewListLink(menu);
+         course = subMenu.clickCourseSection(context.getValue("SectionKey"));
+         importResourcePopup = course.clickAddMaterias();
+         importFromResourcePopup = importResourcePopup.addResource(testQuiz);
+         course = importFromResourcePopup.importCourse();
     }
 
     @And("I join to the course created")
@@ -105,16 +117,13 @@ public class ResourceStepDefs {
         String menu = Internationalization.getInstance().getValue("menu");
         subMenu = home.clickMenu(menu);
         subMenu.clickViewListLink(menu);
-
-
-
+        JoinCoursePopup joinCoursePopup = new Courses().clickJoinCourseButton();
+        joinCoursePopup.join(context.getValue("accessCode"));
     }
 
-    @Then("I should see the resource shared with the course")
-    public void iShouldSeeTheResourceSharedWithTheCourse() {
+    @Then("I should see the {string} resource in my course list")
+    public void iShouldSeeTheResourceSharedWithTheCourse(final String resource) {
+        Assert.assertTrue(resources.getResourceByName(resource));
     }
 
-    @And("I should be able to open the quiz..")
-    public void iShouldBeAbleToOpenTheQuiz() {
-    }
 }

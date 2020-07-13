@@ -1,8 +1,8 @@
 package org.example.schoology.pages.resources;
 
 import org.example.schoology.pages.ViewList;
-import org.example.schoology.pages.courses.AddResourceToCoursePopup;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +14,11 @@ public class Resources extends ViewList {
 
     public static final String COLLECTION_BY_NAME = "//a[text()='%s']";
 
+    private static final String XPATH_RESOURCE_BY_NAME = "//a[text()='%s']";
+
+    public static final String RESOURCE_BY_NAME =
+            "//a[text()='%s']/parent::td/following-sibling::td//child::div[@role='button']";
+
     @FindBy(css = "#collection-share-link")
     private WebElement shareButton;
 
@@ -23,18 +28,19 @@ public class Resources extends ViewList {
     @FindBy(xpath = "//a[@class=\"collection-delete sExtlink-processed popups-processed\"]")
     private WebElement deleteCollectionButton;
 
-    @FindBy (xpath = "//img[@class='action-links-unfold-icon']//ancestor::div[@id='toolbar-add-wrapper']")
+    @FindBy(xpath = "//img[@class='action-links-unfold-icon']//ancestor::div[@id='toolbar-add-wrapper']")
     private WebElement addResourceButton;
 
-    @FindBy (xpath = "//li//child::a[text()=\"Add Test/Quiz\"]")
+    @FindBy(xpath = "//li//child::a[text()=\"Add Test/Quiz\"]")
     private WebElement addTestQuizButton;
 
-    public static final String RESOURCE_BY_NAME = "//a[text()='%s']/parent::td/following-sibling::td//child::div[@role='button']";
+    @FindBy(xpath = "//a[@class=\"action-add-course sExtlink-processed popups-processed\"]")
+    private WebElement addResourceToCourseButton;
 
-    @FindBy (xpath = "//a[@class=\"action-add-course sExtlink-processed popups-processed\"]")
-    private WebElement addResoruceToCourseButton;
+    @FindBy(xpath = "//a[text()='Join a Course']")
+    private WebElement joinACourseButton;
 
-    public AddTemplatePopup clickAddTestQuiz(){
+    public AddTemplatePopup clickAddTestQuiz() {
         addResourceButton.click();
         addTestQuizButton.click();
         return new AddTemplatePopup();
@@ -67,10 +73,12 @@ public class Resources extends ViewList {
         return new DeleteResourceCollectionPopup();
     }
 
-    public AddResourceToCoursePopup clickAddResourceToCourse(final String resourceName) {
-        action.click(By.xpath(String.format(RESOURCE_BY_NAME, resourceName)));
-        action.click(addResoruceToCourseButton);
-        return new AddResourceToCoursePopup();
+    public boolean getResourceByName(final String resourceName) {
+        try {
+            return action.getStatus(By.xpath(String.format(XPATH_RESOURCE_BY_NAME, resourceName)));
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
 }

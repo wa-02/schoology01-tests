@@ -35,4 +35,8 @@ public class WebdriverAction {
     public String getText(final By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
+
+    public boolean getStatus(final By locator) {
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
 }

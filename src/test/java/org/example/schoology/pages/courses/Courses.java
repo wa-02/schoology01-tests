@@ -24,7 +24,7 @@ public class Courses extends ViewList {
     @FindBy(css = "a.create-course-btn")
     private WebElement createCourseButton;
 
-    @FindBy(css = "a.courses-enroll")
+    @FindBy(xpath = "//a[text()=\"Join a Course\"]")
     private WebElement joinCourseButton;
 
     @FindBy(css = "ul[style=\"display: block;\"] .action-edit")
@@ -33,12 +33,16 @@ public class Courses extends ViewList {
     @FindBy(css = "ul[style=\"display: block;\"] .action-delete-link")
     private WebElement deleteCourse;
 
+    @FindBy(xpath = "//h3[text()=\"Manage Courses\"]")
+    private WebElement manageCoursesDescription;
+
     public CreateCoursePopup clickCreateCourseButton() {
         action.click(createCourseButton);
         return new CreateCoursePopup();
     }
 
     public JoinCoursePopup clickJoinCourseButton() {
+        //wait.until(ExpectedConditions.visibilityOf(manageCoursesDescription));
         action.click(joinCourseButton);
         return new JoinCoursePopup();
     }
