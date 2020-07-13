@@ -12,8 +12,7 @@ Feature: Groups
     When I navigate to "Groups"
     And I join in a group with Access code
     Then I should see the "The access code you entered is not a group access code." message
-    And I should not see a group with " SeleniumWebDriverJoin3" as a name
-
+    And I should not see a group with "SeleniumWebDriverJoin3" as a name
 
 
   @deleteGroupInstructor
