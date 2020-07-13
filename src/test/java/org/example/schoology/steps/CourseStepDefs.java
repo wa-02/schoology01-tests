@@ -1,7 +1,5 @@
 package org.example.schoology.steps;
 
-import java.util.Map;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,7 +8,9 @@ import org.example.core.Environment;
 import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
+import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
+import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
@@ -19,14 +19,15 @@ import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.courses.JoinCoursePopup;
 import org.example.schoology.pages.courses.Materials;
 import org.example.schoology.pages.courses.Members;
+import org.example.schoology.pages.courses.Updates;
 import org.example.schoology.pages.groups.Groups;
-import org.example.schoology.pages.Home;
-import org.example.schoology.pages.SubMenu;
 import org.testng.Assert;
+
+import java.util.Map;
 
 public class CourseStepDefs {
 
-    private ScenarioContext context;
+    private final ScenarioContext context;
 
     private SubMenu subMenu;
 
@@ -48,6 +49,7 @@ public class CourseStepDefs {
         home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
                 Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
     }
+
     private Course goToCourse(final String subject) {
         subMenu = home.clickMenu("Courses");
         subMenu.clickViewListLink("Courses");
@@ -148,5 +150,28 @@ public class CourseStepDefs {
         Assert.assertEquals(materials.getMaterial(), materialName);
 
         loginAs(account2);
+    }
+
+    @When("I add an update to {string} course as {string} with {string}")
+    public void iAddAnUpdateToCourseAsWith(final String courseName, final String instructorName, final String update) {
+        Course course = goToCourse(courseName);
+        Updates updates = course.clickUpdates();
+        updates.createUpdate(update);
+        context.setContext("instructor", instructorName);
+        context.setContext("description", update);
+    }
+
+    @Then("{string} should see the update in {string} class")
+    public void shouldSeeTheUpdateInClass(final String student, final String courseName) {
+        loginAs(student);
+
+        Course course = goToCourse(courseName);
+
+        Updates updates = course.clickUpdates();
+        String description = context.getValue("description");
+        Assert.assertEquals(updates.getUpdateText(description), description);
+
+        String instructorName = context.getValue("instructor");
+        loginAs(instructorName);
     }
 }
