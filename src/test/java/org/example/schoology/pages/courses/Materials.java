@@ -1,10 +1,13 @@
 package org.example.schoology.pages.courses;
 
 import org.example.core.ui.AbstractPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class Materials extends AbstractPage {
+
+    public static final String CSS_ADD_MATERIALS = "li.action-create-%s";
 
     @FindBy(css = "div.course-content-action-links")
     private WebElement addMaterialsButton;
@@ -12,16 +15,19 @@ public class Materials extends AbstractPage {
     @FindBy(css = "li.action-create-folder")
     private WebElement addFolderButton;
 
-    @FindBy(css = ".folder-title")
-    private WebElement folderNameLabel;
+    @FindBy(css = ".folder-contents-cell div div div a")
+    private WebElement materialsNameLabel;
 
 
-    public CreateFolderPopup clickAddFolder() {
+    public CreateMaterialPopup clickAddMaterials(final String materialName) {
         action.click(addMaterialsButton);
-        action.click(addFolderButton);
-        return new CreateFolderPopup();
+        WebElement material = driver.findElement(By.cssSelector(
+                String.format(CSS_ADD_MATERIALS, materialName.toLowerCase())));
+        material.click();
+        return new CreateMaterialPopup();
     }
-    public String getFolder() {
-        return folderNameLabel.getText();
+
+    public String getMaterial() {
+        return materialsNameLabel.getText();
     }
 }

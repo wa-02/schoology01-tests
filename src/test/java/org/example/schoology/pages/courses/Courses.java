@@ -19,8 +19,7 @@ public class Courses extends ViewList {
     public static final String XPATH_COURSE_LINK =
             "//span[text()='%s']/ancestor::li//div[@class='sections-list']//a[@class='sExtlink-processed']";
 
-    public static final String XPATH_DELETE_BUTTON =
-            "//span[text()='%s']/parent::p//a";
+    public static final String XPATH_DELETE_BUTTON = "//span[text()='%s']/parent::p//a";
 
     @FindBy(css = "a.create-course-btn")
     private WebElement createCourseButton;
@@ -72,8 +71,6 @@ public class Courses extends ViewList {
     }
 
     public DeletePopup clickDeleteInactiveCourse(final String courseName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath(String.format(XPATH_DELETE_BUTTON, courseName))));
         WebElement courseDeleteButton = driver.findElement(By.xpath(String.format(XPATH_DELETE_BUTTON, courseName)));
 
         // Scroll
