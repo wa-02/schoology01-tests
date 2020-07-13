@@ -71,8 +71,6 @@ public class Courses extends ViewList {
     }
 
     public DeletePopup clickDeleteInactiveCourse(final String courseName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath(String.format(XPATH_DELETE_BUTTON, courseName))));
         WebElement courseDeleteButton = driver.findElement(By.xpath(String.format(XPATH_DELETE_BUTTON, courseName)));
 
         // Scroll
