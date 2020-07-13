@@ -6,20 +6,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Courses extends ViewList {
 
     public static final String XPATH_COURSE_ACTIONS_BUTTON =
-            "//span[text()='%s']/ancestor::li//div[@class='action-links-unfold ']";
+            "//span[text()='%s']/ancestor::li//div[@href='#']";
 
     public static final String XPATH_SECTION_BY_NAME =
             "//span[text()='%s']/parent::p/parent::li//a[@class='sExtlink-processed']";
 
     public static final String XPATH_COURSE_LINK =
-            "//span[text()='%s']/ancestor::li//a[@class='sExtlink-processed']";
+            "//span[text()='%s']/ancestor::li//div[@class='sections-list']//a[@class='sExtlink-processed']";
 
-    public static final String XPATH_DELETE_BUTTON =
-            "//span[text()='%s']/parent::p//a";
+    public static final String XPATH_DELETE_BUTTON = "//span[text()='%s']/parent::p//a";
 
     @FindBy(css = "a.create-course-btn")
     private WebElement createCourseButton;
@@ -81,11 +81,13 @@ public class Courses extends ViewList {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", courseDeleteButton);
 
-        courseDeleteButton.click();
+        action.click(courseDeleteButton);
         return new DeletePopup();
     }
 
     public String getSectionByName(final String courseName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName))));
         WebElement sectionName =  driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName)));
         return action.getText(sectionName);
     }
