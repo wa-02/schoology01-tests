@@ -18,12 +18,21 @@ public class Materials extends AbstractPage {
     @FindBy(css = ".folder-contents-cell div div div a")
     private WebElement materialsNameLabel;
 
+    @FindBy(css = ".action-create-link")
+    private WebElement linkButton;
+
+
 
     public CreateMaterialPopup clickAddMaterials(final String materialName) {
         action.click(addMaterialsButton);
         WebElement material = driver.findElement(By.cssSelector(
                 String.format(CSS_ADD_MATERIALS, materialName.toLowerCase())));
         material.click();
+
+        if (materialName.toLowerCase().equals("document")) {
+            action.click(linkButton);
+        }
+
         return new CreateMaterialPopup();
     }
 

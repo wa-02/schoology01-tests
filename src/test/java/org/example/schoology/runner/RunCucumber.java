@@ -28,5 +28,4 @@ public class RunCucumber extends AbstractTestNGCucumberTests {
         // clean data
         // reset flags
     }
-
 }
