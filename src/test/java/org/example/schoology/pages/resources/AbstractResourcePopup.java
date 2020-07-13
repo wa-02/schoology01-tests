@@ -14,7 +14,7 @@ public class AbstractResourcePopup extends AbstractPage {
     @FindBy(css = "#edit-title")
     protected WebElement collectionTitleField;
 
-    @FindBy(css = "input[id=edit-submit][value=\"Submit\"]")
+    @FindBy(css = "input[id=edit-submit][value=\"Create\"]")
     protected WebElement submitButton;
 
     @FindBy(css = "#edit-template-fields-title")

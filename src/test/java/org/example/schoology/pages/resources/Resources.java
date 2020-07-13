@@ -71,11 +71,10 @@ public class Resources extends ViewList {
         return new ShareSettingsPopup();
     }
 
-    public String getCollectionByName(final String collectionName) {
+    public boolean getCollectionByName(final String collectionName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()=\"Shared by Others\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath(String.format(COLLECTION_BY_NAME, collectionName))));
-        return action.getText(driver.findElement(By.xpath(String.format(COLLECTION_BY_NAME, collectionName))));
+        return action.getStatus(By.xpath(String.format(COLLECTION_BY_NAME, collectionName)));
+
     }
 
     public DeleteResourceCollectionPopup clickDeleteCollection(final String collectionTitle) {
