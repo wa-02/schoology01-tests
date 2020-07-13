@@ -35,6 +35,9 @@ public class Course extends AbstractPage {
     @FindBy(xpath = "//a[text()=\"Notifications\"]")
     private WebElement notificationButton;
 
+    @FindBy(xpath = "//a[text()=\"Badges\"]")
+    private WebElement badgesSectionTab;
+
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
@@ -59,5 +62,10 @@ public class Course extends AbstractPage {
         action.click(addMaterialsButton);
         action.click(importFromResourcesOption);
         return new ImportResourcePopup();
+    }
+
+    public Badges clickBadgeSectionTab(){
+        action.click(badgesSectionTab);
+        return new Badges();
     }
 }
