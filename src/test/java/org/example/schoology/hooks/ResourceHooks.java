@@ -39,8 +39,6 @@ public class ResourceHooks {
     @After(value = "@deleteResource")
     public void deleteResource() {
         DriverFactory.getDriver().get("https://app.schoology.com");
-        Login login = new Login();
-        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
         Resources resources = new Home().clickResourcesMenu();
         resources.clickDeleteResource(context.getValue("ResourceNameKey"));
     }

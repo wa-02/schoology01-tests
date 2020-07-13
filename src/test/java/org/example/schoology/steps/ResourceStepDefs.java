@@ -55,6 +55,12 @@ public class ResourceStepDefs {
         this.context = context;
     }
 
+    private void loginAs(final String account) {
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+    }
+
     @And("I create a resource collection with:")
     public void iCreateAResourceCollectionWith(final Map<String, String> datatable) {
         resources = home.clickResourcesMenu();
@@ -119,9 +125,12 @@ public class ResourceStepDefs {
         joinCoursePopup.join(context.getValue("accessCode"));
     }
 
-    @Then("I should see the {string} resource in my course list")
-    public void iShouldSeeTheResourceSharedWithTheCourse(final String resource) {
+
+
+    @Then("I should see the {string} resource of my {string} in my course list")
+    public void iShouldSeeTheResourceSharedWithTheCourse(final String resource, final String instructor) {
         Assert.assertTrue(resources.getResourceByName(resource));
+        loginAs(instructor);
     }
 
 }

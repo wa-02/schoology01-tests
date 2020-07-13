@@ -76,8 +76,15 @@ public class CommonStepDefs {
         infoPage.clickBadgesEstudentTab();
     }
 
-    @Then("I should see {string} badged")
-    public void iShouldSeeBadged(final String badgedName) {
+    private void loginAs(final String account) {
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+    }
+
+    @Then("I should see {string} badged from my {string}")
+    public void iShouldSeeBadged(final String badgedName, final String instructor) {
         Assert.assertEquals(badgedName, badges.getBadgedName(badgedName));
+        loginAs(instructor);
     }
 }

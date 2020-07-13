@@ -15,4 +15,4 @@ Feature: Post a badge
      And I add the badged to "Student01"
      And I log in as "Student01" user
      And I go to my badged section in my profile
-     Then I should see "Perfect Attendance" badged
+     Then I should see "Perfect Attendance" badged from my "Instructor01"

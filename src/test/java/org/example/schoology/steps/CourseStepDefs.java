@@ -48,6 +48,7 @@ public class CourseStepDefs {
         home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
                 Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
     }
+
     private Course goToCourse(final String subject) {
         subMenu = home.clickMenu("Courses");
         subMenu.clickViewListLink("Courses");

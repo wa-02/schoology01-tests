@@ -15,4 +15,4 @@ Feature: Resources
       | points     |    75    |
     When I add the "Quiz01" to the course created
     And "Student01" user use the "AccessCode"
-    Then I should see the "Quiz01" resource in my course list
+    Then I should see the "Quiz01" resource of my "Instructor01" in my course list
