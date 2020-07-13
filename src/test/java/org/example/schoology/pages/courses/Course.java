@@ -26,6 +26,9 @@ public class Course extends AbstractPage {
     @FindBy(css = "div.course-materials-left-menu")
     private WebElement materialsButton;
 
+    @FindBy(css = "div.course-updates-left-menu")
+    private WebElement updatesButton;
+
     @FindBy(xpath = "//span[text()=\"Add Materials\"]")
     private WebElement addMaterialsButton;
 
@@ -67,5 +70,10 @@ public class Course extends AbstractPage {
     public Badges clickBadgeSectionTab() {
         action.click(badgesSectionTab);
         return new Badges();
+    }
+
+    public Updates clickUpdates() {
+        updatesButton.click();
+        return new Updates();
     }
 }
