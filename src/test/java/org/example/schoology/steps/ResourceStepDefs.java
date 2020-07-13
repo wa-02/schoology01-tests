@@ -86,13 +86,10 @@ public class ResourceStepDefs {
         resources = home.clickResourcesMenu();
     }
 
-
     @Then("I should see the {string} title collection")
     public void iShouldSeeTheTitleCollection(final String collectionTitle) {
         Assert.assertEquals(collectionTitle, resources.getCollectionByName(collectionTitle));
     }
-
-
 
     @And("I create a Quiz resource with:")
     public void iCreateAResourceWith(final Map<String, String> datatable) {
