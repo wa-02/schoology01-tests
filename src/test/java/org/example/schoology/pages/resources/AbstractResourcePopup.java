@@ -17,6 +17,9 @@ public class AbstractResourcePopup extends AbstractPage {
     @FindBy(css = "input[id=edit-submit][value=\"Create\"]")
     protected WebElement submitButton;
 
+    @FindBy(css = "input[id=\"edit-submit\"][value=\"Submit\"]")
+    protected WebElement submitButtonAddTemplate;
+
     @FindBy(css = "#edit-template-fields-title")
     protected WebElement nameQuizTexField;
 

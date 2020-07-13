@@ -10,7 +10,7 @@ public class AddTemplatePopup extends AbstractResourcePopup {
 
     public SubMenuTemplate create(final Map<String, String> datatable) {
         fill(datatable);
-        action.click(submitButton);
+        action.click(submitButtonAddTemplate);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[text()=\"Add Template\"]")));
         return new SubMenuTemplate();
     }

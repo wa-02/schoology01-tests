@@ -71,9 +71,9 @@ public class Resources extends ViewList {
         return new ShareSettingsPopup();
     }
 
-    public boolean getCollectionByName(final String collectionName) {
+    public String getCollectionByName(final String collectionName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()=\"Shared by Others\"]")));
-        return action.getStatus(By.xpath(String.format(COLLECTION_BY_NAME, collectionName)));
+        return action.getText(By.xpath(String.format(COLLECTION_BY_NAME, collectionName)));
 
     }
 

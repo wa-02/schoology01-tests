@@ -4,7 +4,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.DriverFactory;
-import org.example.schoology.pages.Login;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.resources.DeleteResourceCollectionPopup;
 import org.example.schoology.pages.resources.Resources;
@@ -27,10 +26,10 @@ public class ResourceHooks {
     public void deleteResourceCollection() {
 
         DriverFactory.getDriver().get("https://app.schoology.com");
-        Login login = new Login();
-        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
+//        Login login = new Login();
+//        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
 
-        Resources resources = home.clickResourcesMenu();
+        Resources resources = new Home().clickResourcesMenu();
         DeleteResourceCollectionPopup deleteResourceCollectionPopup =
                 resources.clickDeleteCollection(context.getValue("CollectionTitle"));
         deleteResourceCollectionPopup.clickDeleteButton();
