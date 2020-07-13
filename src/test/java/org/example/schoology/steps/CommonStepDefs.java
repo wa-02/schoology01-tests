@@ -55,16 +55,15 @@ public class CommonStepDefs {
         subMenu = home.clickMenu(menu);
         subMenu.clickViewListLink(menu);
         course = subMenu.clickCourseSection(context.getValue("SectionKey"));
-        Badges badges = course.clickBadgeSectionTab();
+        badges = course.clickBadgeSectionTab();
         badges.clickAddBadged(badgedType);
     }
 
     @And("I add the badged to {string}")
     public void iAddTheBadgedTo(String studentName) {
-        badges.clickAddBadgeToStudent();
-        //badges.clickAddBadgeToStudent(
-                //nvironment.getInstance().getValue(String.format("credentials.%s.firstName", studentName)),
-                //Environment.getInstance().getValue(String.format("credentials.%s.lastName", studentName)));
+        badges.clickAddBadgeToStudent(
+                Environment.getInstance().getValue(String.format("credentials.%s.firstName", studentName)),
+                Environment.getInstance().getValue(String.format("credentials.%s.lastName", studentName)));
     }
 
     @And("I go to my badged section in my profile")

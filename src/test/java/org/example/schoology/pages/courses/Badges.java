@@ -27,16 +27,17 @@ public class Badges extends AbstractPage {
     @FindBy(css = "//span[text()=\"Click to toggle options.\"]//ancestor::div[@class=\"action-links-unfold active\"]")
     private WebElement add_Badge_Toogle_Options;
 
+    @FindBy(css = "//div[@class=\"message-text\"]")
+    private WebElement statusBadgedDescription;
+
     public void clickAddBadged(String badgedType){
         action.click(By.xpath(String.format(BADGED_BY_TYPE, badgedType)));
         action.click(addButton);
     }
 
-    public void clickAddBadgeToStudent(){
-        action.click(add_Badge_Button);
-        //wait.until(ExpectedConditions.visibilityOf(add_Badge_Button));
-        //action.click(By.xpath(String.format
-                //(ADD_BADGED_TO_STUDENT, lastName, firstName)));
+    public void clickAddBadgeToStudent(final String firstName, final String lastName){
+        action.click(By.xpath(String.format
+                (ADD_BADGED_TO_STUDENT, lastName, firstName)));
     }
 
     public String getBadgedName(final String badgedName){
