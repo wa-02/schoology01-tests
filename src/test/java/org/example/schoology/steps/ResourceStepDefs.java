@@ -11,8 +11,11 @@ import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
 import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.courses.Courses;
-import org.example.schoology.pages.courses.Materials;
-import org.example.schoology.pages.resources.*;
+import org.example.schoology.pages.resources.Resources;
+import org.example.schoology.pages.resources.AddCollectionPopup;
+import org.example.schoology.pages.resources.AddRubricPopup;
+import org.example.schoology.pages.resources.AddToCoursePopup;
+import org.example.schoology.pages.resources.ShareSettingsPopup;
 import org.junit.Assert;
 
 import java.util.Map;
@@ -80,13 +83,13 @@ public class ResourceStepDefs {
     }
 
     @And("I add the rubric to Course {string}")
-    public void iAddTheRubricToCourse(String courseName) {
+    public void iAddTheRubricToCourse(final String courseName) {
         addCourse = resources.clickAddRubricToCourse(courseName);
         addCourse.selectCourse(courseName);
     }
 
     @Then("I should see the rubric {string} in list")
-    public void iShouldSeeTheRubricInCourse(String rubricName) {
+    public void iShouldSeeTheRubricInCourse(final String rubricName) {
         Assert.assertEquals(rubricName, resources.getRubricByName(rubricName));
     }
 }

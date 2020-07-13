@@ -1,6 +1,5 @@
 package org.example.schoology.pages.resources;
 
-import org.example.schoology.pages.DeletePopup;
 import org.example.schoology.pages.ViewList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,9 +9,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Resources extends ViewList {
 
-    public static final String GROUP_ACTIONS_BUTTON = "//span[text()='%s']/ancestor::tr//div[@href='#']//span[@class='action-links-unfold-inline-image']";
-    public static final String ADD_TO_COURSE = "//span[text()='%s']/ancestor::tr//a[@class='action-add-course sExtlink-processed popups-processed']";
-    public static final String DELETE_RUBRIC_ACTION = "//span[text()='%s']/ancestor::tr//a[@class='action-delete  sExtlink-processed popups-processed']";
+    public static final String GROUP_ACTIONS_BUTTON =
+            "//span[text()='%s']/ancestor::tr//div[@href='#']//span[@class='action-links-unfold-inline-image']";
+    public static final String ADD_TO_COURSE =
+            "//span[text()='%s']/ancestor::tr//a[@class='action-add-course sExtlink-processed popups-processed']";
+    public static final String DELETE_RUBRIC_ACTION =
+            "//span[text()='%s']/ancestor::tr//a[@class='action-delete  sExtlink-processed popups-processed']";
     public static final String COLLECTION_BY_NAME = "//a[text()= '%s']";
     public static final String RUBRIC_BY_NAME = "//div/span[text()= '%s']";
 
@@ -72,7 +74,7 @@ public class Resources extends ViewList {
         return new AddRubricPopup();
     }
 
-    public AddToCoursePopup clickAddRubricToCourse(String courseName) {
+    public AddToCoursePopup clickAddRubricToCourse(final String courseName) {
         WebElement actionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON, courseName)));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", actionsButton);
@@ -89,8 +91,9 @@ public class Resources extends ViewList {
         return action.getText(driver.findElement(By.xpath(String.format(RUBRIC_BY_NAME, rubricName))));
     }
 
-    public DeleteRubricPopup clickDeleteRubric(String rubricName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(GROUP_ACTIONS_BUTTON, rubricName))));
+    public DeleteRubricPopup clickDeleteRubric(final String rubricName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(GROUP_ACTIONS_BUTTON, rubricName))));
         WebElement actionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON, rubricName)));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", actionsButton);

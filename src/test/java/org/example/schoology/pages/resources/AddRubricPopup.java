@@ -2,7 +2,6 @@ package org.example.schoology.pages.resources;
 
 import org.example.core.ui.AbstractPage;
 import org.example.schoology.pages.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
