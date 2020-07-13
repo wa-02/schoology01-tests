@@ -23,6 +23,9 @@ public class Course extends AbstractPage {
     @FindBy(css = "div.course-member-left-menu")
     private WebElement membersButton;
 
+    @FindBy(css = "div.course-materials-left-menu")
+    private WebElement materialsButton;
+
     @FindBy(xpath = "//span[text()=\"Add Materials\"]")
     private WebElement addMaterialsButton;
 
@@ -31,9 +34,6 @@ public class Course extends AbstractPage {
 
     @FindBy(xpath = "//a[text()=\"Notifications\"]")
     private WebElement notificationButton;
-
-    @FindBy(css = "div.course-materials-left-menu")
-    private WebElement materialsButton;
 
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
@@ -54,7 +54,7 @@ public class Course extends AbstractPage {
         return new Materials();
     }
 
-    public ImportResourcePopup clickAddMaterias() {
+    public ImportResourcePopup clickAddMaterials(){
         wait.until(ExpectedConditions.visibilityOf(notificationButton));
         action.click(addMaterialsButton);
         action.click(importFromResourcesOption);

@@ -107,7 +107,7 @@ public class ResourceStepDefs {
          subMenu = subMenuTemplate.clickMenu(menu);
          subMenu.clickViewListLink(menu);
          course = subMenu.clickCourseSection(context.getValue("SectionKey"));
-         importResourcePopup = course.clickAddMaterias();
+         importResourcePopup = course.clickAddMaterials();
          importFromResourcePopup = importResourcePopup.addResource(testQuiz);
          course = importFromResourcePopup.importCourse();
     }
