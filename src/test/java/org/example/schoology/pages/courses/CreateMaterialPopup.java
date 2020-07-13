@@ -39,6 +39,12 @@ public class CreateMaterialPopup extends AbstractPage {
     @FindBy(css = "#edit-new-category")
     private WebElement categoryTextField;
 
+    @FindBy(css = "#edit-link")
+    private WebElement linkTextField;
+
+    @FindBy(css = "#edit-link-title")
+    private WebElement linkTitleTextField;
+
     @FindBy(css = "#edit-submit")
     protected WebElement submitButton;
 
@@ -51,6 +57,8 @@ public class CreateMaterialPopup extends AbstractPage {
         stepsMap.put("date", () -> setDate(folderMap.get("date")));
         stepsMap.put("availability", () -> selectAvailability(folderMap.get("availability")));
         stepsMap.put("category", () -> selectCategory(folderMap.get("category")));
+        stepsMap.put("link", () -> setLink(folderMap.get("link")));
+        stepsMap.put("linkTitle", () -> setLinkTitle(folderMap.get("linkTitle")));
 
         for (final String keyField : folderMap.keySet()) {
             stepsMap.get(keyField).execute();
@@ -92,8 +100,21 @@ public class CreateMaterialPopup extends AbstractPage {
         categoryTextField.sendKeys(category);
     }
 
+    public void setLink(final String title) {
+        linkTextField.sendKeys(title);
+    }
+
+    public void setLinkTitle(final String title) {
+        linkTitleTextField.sendKeys(title);
+    }
+
     public Course createMaterial(final Map<String, String> folderMap) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(boldButton));
+        for (String key : folderMap.keySet()) {
+            if (key.equals("description")) {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(boldButton));
+            }
+        }
+
         fill(folderMap);
         submitButton.submit();
         return new Course();
