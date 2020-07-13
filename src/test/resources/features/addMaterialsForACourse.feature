@@ -32,3 +32,17 @@ Feature: Add Material for a course
       | description | New assignment  |
       | category	| Homework        |
     Then "Student02" should have a "New assignment" material in "Instructor01"'s "Physical 200" class.
+
+
+  @deleteCourse
+  Scenario: Verify that an student can show an link-document create for an instructor
+    Given I am a "Instructor01" of:
+      | name    | Physical 300 |
+      | section | New Section  |
+      | area    | Technology   |
+      | level   | Graduate     |
+    And "Student02" is my student
+    When I as "Instructor01" user of "Physical 300" course create a "Document" for my class
+      | link      | https://www.youtube.com/  |
+      | linkTitle | youtube                   |
+    Then "Student02" should have a "youtube" material in "Instructor01"'s "Physical 300" class.
