@@ -26,9 +26,6 @@ public class ResourceHooks {
     public void deleteResourceCollection() {
 
         DriverFactory.getDriver().get("https://app.schoology.com");
-//        Login login = new Login();
-//        Home home = login.loginAs(context.getValue("userName"), context.getValue("passWord"));
-
         Resources resources = new Home().clickResourcesMenu();
         DeleteResourceCollectionPopup deleteResourceCollectionPopup =
                 resources.clickDeleteCollection(context.getValue("CollectionTitle"));
