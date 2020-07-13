@@ -110,7 +110,7 @@ public class CreateMaterialPopup extends AbstractPage {
     }
 
     public Course createMaterial(final Map<String, String> folderMap) {
-        for ( String key : folderMap.keySet() ) {
+        for (String key : folderMap.keySet()) {
             if (key.equals("description")) {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(boldButton));
             }
