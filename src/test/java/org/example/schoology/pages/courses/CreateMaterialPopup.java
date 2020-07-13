@@ -13,7 +13,7 @@ import java.util.Map;
 public class CreateMaterialPopup extends AbstractPage {
     private final By boldButton = By.cssSelector("#edit-description_bold");
 
-    public static final String XPATH_FOLDER_COLOR ="//div[@data-color='%s']";
+    public static final String XPATH_FOLDER_COLOR = "//div[@data-color='%s']";
 
     @FindBy(css = "#edit-title")
     private WebElement nameTextField;
@@ -86,7 +86,7 @@ public class CreateMaterialPopup extends AbstractPage {
         subjectArea.selectByVisibleText(availability);
     }
 
-    private void selectCategory(String category) {
+    private void selectCategory(final String category) {
         Select subjectArea = new Select(categoryDropDown);
         subjectArea.selectByVisibleText("(Create new grading category)");
         categoryTextField.sendKeys(category);

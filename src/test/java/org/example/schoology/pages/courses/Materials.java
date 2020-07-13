@@ -19,7 +19,7 @@ public class Materials extends AbstractPage {
     private WebElement materialsNameLabel;
 
 
-    public CreateMaterialPopup clickAddMaterials(String materialName) {
+    public CreateMaterialPopup clickAddMaterials(final String materialName) {
         action.click(addMaterialsButton);
         WebElement material = driver.findElement(By.cssSelector(
                 String.format(CSS_ADD_MATERIALS, materialName.toLowerCase())));

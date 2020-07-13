@@ -43,6 +43,18 @@ public class CourseStepDefs {
         this.courses = courses;
     }
 
+    private void loginAs(final String account) {
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+    }
+    private Course goToCourse(final String subject) {
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        return courses.clickCourseLink(subject);
+    }
+
+
     @And("I create a course with:")
     public void iCreateACourseWith(final Map<String, String> datatable) {
         String menu = Internationalization.getInstance().getValue("menu");
@@ -67,9 +79,7 @@ public class CourseStepDefs {
     @Given("I am a {string} of:")
     public void iAmAOf(final String account, final Map<String, String> datatable) {
         // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
         // Create course
         iCreateACourseWith(datatable);
@@ -84,9 +94,7 @@ public class CourseStepDefs {
 
     @When("{string} user use the {string}")
     public void useTheAccessCode(final String account, final String code) {
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
         String menu = Internationalization.getInstance().getValue("menu");
         subMenu = home.clickMenu(menu);
@@ -98,13 +106,9 @@ public class CourseStepDefs {
     @Then("I am as {string} should have a {string} user in the {string} course")
     public void iAmAsShouldHaveAUserInTheCourse(final String account, final String member, final String subject) {
         // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
-        Course course = courses.clickCourseLink(subject);
+        Course course = goToCourse(subject);
 
         Members members = course.clickMembers();
         members.clickMembers();
@@ -123,13 +127,9 @@ public class CourseStepDefs {
     public void iAsUserOfCourseCreateAForMyClass(final String account, final String subject, final String material,
                                                  final Map<String, String> datatable) {
         // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
-        Course course = courses.clickCourseLink(subject);
+        Course course = goToCourse(subject);
 
         Materials materials = course.clickMaterials();
         CreateMaterialPopup createMaterialPopup = materials.clickAddMaterials(material);
@@ -140,19 +140,13 @@ public class CourseStepDefs {
     @Then("{string} should have a {string} material in {string}'s {string} class.")
     public void shouldHaveAFolderInSClass(final String account1, final String materialName, final String account2,
                                           final String subject) {
-        // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account1)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account1)));
+        loginAs(account1);
 
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
-        Course course = courses.clickCourseLink(subject);
+        Course course = goToCourse(subject);
 
         Materials materials = course.clickMaterials();
         Assert.assertEquals(materials.getMaterial(), materialName);
 
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account2)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account2)));
+        loginAs(account2);
     }
 }

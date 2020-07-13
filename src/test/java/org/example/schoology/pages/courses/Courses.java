@@ -19,8 +19,7 @@ public class Courses extends ViewList {
     public static final String XPATH_COURSE_LINK =
             "//span[text()='%s']/ancestor::li//div[@class='sections-list']//a[@class='sExtlink-processed']";
 
-    public static final String XPATH_DELETE_BUTTON =
-            "//span[text()='%s']/parent::p//a";
+    public static final String XPATH_DELETE_BUTTON = "//span[text()='%s']/parent::p//a";
 
     @FindBy(css = "a.create-course-btn")
     private WebElement createCourseButton;
