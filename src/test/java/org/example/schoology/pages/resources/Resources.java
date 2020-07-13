@@ -19,6 +19,8 @@ public class Resources extends ViewList {
     public static final String RESOURCE_BY_NAME =
             "//a[text()='%s']/parent::td/following-sibling::td//child::div[@role='button']";
 
+    private final By deletePopUp = By.cssSelector("#popups-1");
+
     @FindBy(css = "#collection-share-link")
     private WebElement shareButton;
 
@@ -39,6 +41,14 @@ public class Resources extends ViewList {
 
     @FindBy(xpath = "//a[text()='Join a Course']")
     private WebElement joinACourseButton;
+
+    @FindBy(xpath = "//input[@value='Delete']")
+    private WebElement deleteButton;
+
+    public static final String RESOURCE_ACTION_BUTTON =
+            "//a[text()='%s']/parent::td/following-sibling::td/child::div/child::div[@role='button']";
+    public static final String DELETE_RESOURCE_ACTION_BUTTON =
+            "//a[text()='%s']/ancestor::tr//ul//li[contains(@class,'action-delete')]";
 
     public AddTemplatePopup clickAddTestQuiz() {
         addResourceButton.click();
@@ -75,6 +85,17 @@ public class Resources extends ViewList {
         action.click(optionsCollectionButton);
         action.click(deleteCollectionButton);
         return new DeleteResourceCollectionPopup();
+    }
+
+
+    public Resources clickDeleteResource(final String resourceName) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".messages .message-text")));
+        driver.findElement(By.xpath(String.format(RESOURCE_ACTION_BUTTON, resourceName))).click();
+        driver.findElement(By.xpath(String.format(DELETE_RESOURCE_ACTION_BUTTON, resourceName))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(deletePopUp));
+        deleteButton.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".messages .message-text")));
+        return new Resources();
     }
 
     public boolean getResourceByName(final String resourceName) {

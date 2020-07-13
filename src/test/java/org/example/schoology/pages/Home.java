@@ -30,7 +30,7 @@ public class Home extends AbstractPage {
         return new Resources();
     }
 
-    public InfoPage selectYourProfileAccount(){
+    public InfoPage selectYourProfileAccount() {
         action.click(By.xpath(OPTIONS_MENU));
         action.click(By.xpath(("//a[text()='Your Profile']")));
         return new InfoPage();

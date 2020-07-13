@@ -8,7 +8,11 @@ import org.example.core.Environment;
 import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
-import org.example.schoology.pages.*;
+import org.example.schoology.pages.Home;
+import org.example.schoology.pages.SubMenu;
+import org.example.schoology.pages.Login;
+import org.example.schoology.pages.ViewList;
+import org.example.schoology.pages.InfoPage;
 import org.example.schoology.pages.courses.Badges;
 import org.example.schoology.pages.courses.Course;
 import org.testng.Assert;
@@ -50,7 +54,7 @@ public class CommonStepDefs {
     }
 
     @And("I create a badged of {string}")
-    public void iCreateABadgedOf(String badgedType) {
+    public void iCreateABadgedOf(final String badgedType) {
         String menu = Internationalization.getInstance().getValue("menu");
         subMenu = home.clickMenu(menu);
         subMenu.clickViewListLink(menu);
@@ -60,7 +64,7 @@ public class CommonStepDefs {
     }
 
     @And("I add the badged to {string}")
-    public void iAddTheBadgedTo(String studentName) {
+    public void iAddTheBadgedTo(final String studentName) {
         badges.clickAddBadgeToStudent(
                 Environment.getInstance().getValue(String.format("credentials.%s.firstName", studentName)),
                 Environment.getInstance().getValue(String.format("credentials.%s.lastName", studentName)));
@@ -73,7 +77,7 @@ public class CommonStepDefs {
     }
 
     @Then("I should see {string} badged")
-    public void iShouldSeeBadged(String badgedName) {
+    public void iShouldSeeBadged(final String badgedName) {
         Assert.assertEquals(badgedName, badges.getBadgedName(badgedName));
     }
 }

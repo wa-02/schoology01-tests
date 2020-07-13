@@ -96,6 +96,7 @@ public class ResourceStepDefs {
         resources = new Home().clickResourcesMenu();
         addTemplatePopup = resources.clickAddTestQuiz();
         subMenuTemplate = addTemplatePopup.create(datatable);
+        context.setContext("ResourceNameKey", datatable.get("name"));
     }
 
     @When("I add the {string} to the course created")

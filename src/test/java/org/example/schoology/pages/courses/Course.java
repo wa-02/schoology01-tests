@@ -57,14 +57,14 @@ public class Course extends AbstractPage {
         return new Materials();
     }
 
-    public ImportResourcePopup clickAddMaterials(){
+    public ImportResourcePopup clickAddMaterials() {
         wait.until(ExpectedConditions.visibilityOf(notificationButton));
         action.click(addMaterialsButton);
         action.click(importFromResourcesOption);
         return new ImportResourcePopup();
     }
 
-    public Badges clickBadgeSectionTab(){
+    public Badges clickBadgeSectionTab() {
         action.click(badgesSectionTab);
         return new Badges();
     }
