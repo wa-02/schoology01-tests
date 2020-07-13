@@ -3,6 +3,7 @@ package org.example.schoology.pages.courses;
 import org.example.core.ui.AbstractPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 public class Members extends AbstractPage {
@@ -17,7 +18,7 @@ public class Members extends AbstractPage {
     }
 
     public void searchStudent(final String firstName, final String lastName) {
-        String fullName = action.getText(fullNameText);
-        Assert.assertEquals(fullName, firstName + " " + lastName);
+        wait.until(ExpectedConditions.visibilityOf(fullNameText));
+        Assert.assertEquals(fullNameText.getText(), firstName + " " + lastName);
     }
 }
