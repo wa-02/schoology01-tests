@@ -116,8 +116,9 @@ public class CourseStepDefs {
 
         Members members = course.clickMembers();
         members.clickMembers();
-        members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
-                Environment.getInstance().getValue(String.format("credentials.%s.lastName", member)));
+        Assert.assertTrue(members.isMember(
+                Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
+                Environment.getInstance().getValue(String.format("credentials.%s.lastName", member))));
 
     }
 
