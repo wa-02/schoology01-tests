@@ -14,6 +14,7 @@ import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
+import org.example.schoology.pages.courses.CreateDiscussionPopup;
 import org.example.schoology.pages.courses.CreateMaterialPopup;
 import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.courses.JoinCoursePopup;
@@ -154,6 +155,8 @@ public class CourseStepDefs {
 
     @When("I add an update to {string} course as {string} with {string}")
     public void iAddAnUpdateToCourseAsWith(final String courseName, final String instructorName, final String update) {
+        loginAs(instructorName);
+
         Course course = goToCourse(courseName);
         Updates updates = course.clickUpdates();
         updates.createUpdate(update);
@@ -173,5 +176,20 @@ public class CourseStepDefs {
 
         String instructorName = context.getValue("instructor");
         loginAs(instructorName);
+    }
+
+    @When("I as {string} user of {string} course create a Discussion for my class with:")
+    public void iAsUserOfCourseCreateADiscussionForMyClassWith(final String instructorName, final String courseName,
+                                                               final Map<String, String> discussionData) {
+        context.setContext("instructor", instructorName);
+        context.setContext("course", courseName);
+        // Login
+        loginAs(instructorName);
+
+        Course course = goToCourse(courseName);
+
+        Materials materials = course.clickMaterials();
+        CreateDiscussionPopup createDiscussionPopup = materials.clickAddDiscussion();
+        createDiscussionPopup.createDiscussion(discussionData);
     }
 }

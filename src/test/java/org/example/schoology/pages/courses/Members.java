@@ -19,6 +19,6 @@ public class Members extends AbstractPage {
 
     public void searchStudent(final String firstName, final String lastName) {
         wait.until(ExpectedConditions.visibilityOf(fullNameText));
-        Assert.assertEquals(fullNameText.getText(), firstName + " " + lastName);
+        Assert.assertEquals(action.getText(fullNameText), firstName + " " + lastName);
     }
 }
