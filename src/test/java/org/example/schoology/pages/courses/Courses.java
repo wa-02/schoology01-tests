@@ -12,8 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Courses extends ViewList {
 
-    public static final String XPATH_COURSE_ACTIONS_BUTTON ="//span[text()='%s']/ancestor::li//div[@class='action-links-unfold ']";
+    public static final Integer TIME_TO_WAIT = 5;
 
+    public static final String
+            XPATH_COURSE_ACTIONS_BUTTON = "//span[text()='%s']/ancestor::li//div[@class='action-links-unfold ']";
 
     public static final String XPATH_SECTION_BY_NAME =
             "//span[text()='%s']/parent::p/parent::li//a[@class='sExtlink-processed']";
@@ -41,7 +43,7 @@ public class Courses extends ViewList {
     }
 
     public JoinCoursePopup clickJoinCourseButton() {
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIME_TO_WAIT, TimeUnit.SECONDS);
         action.click(joinCourseButton);
         return new JoinCoursePopup();
     }
@@ -87,12 +89,12 @@ public class Courses extends ViewList {
     public String getSectionByName(final String courseName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName))));
-        WebElement sectionName =  driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName)));
+        WebElement sectionName = driver.findElement(By.xpath(String.format(XPATH_SECTION_BY_NAME, courseName)));
         return action.getText(sectionName);
     }
 
-    public Course clickCourseLink(final  String courseName) {
-        WebElement courseLink =  driver.findElement(By.xpath(String.format(XPATH_COURSE_LINK, courseName)));
+    public Course clickCourseLink(final String courseName) {
+        WebElement courseLink = driver.findElement(By.xpath(String.format(XPATH_COURSE_LINK, courseName)));
         action.click(courseLink);
         return new Course();
     }

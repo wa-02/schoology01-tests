@@ -52,8 +52,8 @@ public class CourseStepDefs {
     }
 
     private Course goToCourse(final String subject) {
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
+        subMenu = home.clickMenu("courses");
+        subMenu.clickViewListLink("courses");
         return courses.clickCourseLink(subject);
     }
 
