@@ -1,7 +1,5 @@
 package org.example.schoology.steps;
 
-import java.util.Map;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,23 +8,27 @@ import org.example.core.Environment;
 import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
+import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
+import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.courses.Course;
 import org.example.schoology.pages.courses.Courses;
 import org.example.schoology.pages.courses.CreateCoursePopup;
-import org.example.schoology.pages.courses.CreateFolderPopup;
+import org.example.schoology.pages.courses.CreateDiscussionPopup;
+import org.example.schoology.pages.courses.CreateMaterialPopup;
 import org.example.schoology.pages.courses.EditCoursePopup;
 import org.example.schoology.pages.courses.JoinCoursePopup;
 import org.example.schoology.pages.courses.Materials;
 import org.example.schoology.pages.courses.Members;
+import org.example.schoology.pages.courses.Updates;
 import org.example.schoology.pages.groups.Groups;
-import org.example.schoology.pages.Home;
-import org.example.schoology.pages.SubMenu;
 import org.testng.Assert;
+
+import java.util.Map;
 
 public class CourseStepDefs {
 
-    private ScenarioContext context;
+    private final ScenarioContext context;
 
     private SubMenu subMenu;
 
@@ -43,6 +45,19 @@ public class CourseStepDefs {
         this.courses = courses;
     }
 
+    private void loginAs(final String account) {
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+    }
+
+    private Course goToCourse(final String subject) {
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
+        return courses.clickCourseLink(subject);
+    }
+
+
     @And("I create a course with:")
     public void iCreateACourseWith(final Map<String, String> datatable) {
         String menu = Internationalization.getInstance().getValue("menu");
@@ -51,6 +66,7 @@ public class CourseStepDefs {
         CreateCoursePopup createCoursePopup = this.courses.clickCreateCourseButton();
         createCoursePopup.create(datatable);
         context.setContext("CourseKey", datatable.get("name"));
+        context.setContext("SectionKey", datatable.get("section"));
     }
 
     @And("I edit the {string} course with:")
@@ -67,9 +83,7 @@ public class CourseStepDefs {
     @Given("I am a {string} of:")
     public void iAmAOf(final String account, final Map<String, String> datatable) {
         // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
         // Create course
         iCreateACourseWith(datatable);
@@ -84,9 +98,7 @@ public class CourseStepDefs {
 
     @When("{string} user use the {string}")
     public void useTheAccessCode(final String account, final String code) {
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
         String menu = Internationalization.getInstance().getValue("menu");
         subMenu = home.clickMenu(menu);
@@ -98,18 +110,15 @@ public class CourseStepDefs {
     @Then("I am as {string} should have a {string} user in the {string} course")
     public void iAmAsShouldHaveAUserInTheCourse(final String account, final String member, final String subject) {
         // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
-        Course course = courses.clickCourseLink(subject);
+        Course course = goToCourse(subject);
 
         Members members = course.clickMembers();
         members.clickMembers();
-        members.searchStudent(Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
-                Environment.getInstance().getValue(String.format("credentials.%s.lastName", member)));
+        Assert.assertTrue(members.isMember(
+                Environment.getInstance().getValue(String.format("credentials.%s.firstName", member)),
+                Environment.getInstance().getValue(String.format("credentials.%s.lastName", member))));
 
     }
 
@@ -123,36 +132,66 @@ public class CourseStepDefs {
     public void iAsUserOfCourseCreateAForMyClass(final String account, final String subject, final String material,
                                                  final Map<String, String> datatable) {
         // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
+        loginAs(account);
 
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
-        Course course = courses.clickCourseLink(subject);
+        Course course = goToCourse(subject);
 
         Materials materials = course.clickMaterials();
-        CreateFolderPopup createFolderPopup = materials.clickAddFolder();
-        createFolderPopup.createFolder(datatable);
+        CreateMaterialPopup createMaterialPopup = materials.clickAddMaterials(material);
+        createMaterialPopup.createMaterial(datatable);
     }
 
 
-    @Then("{string} should have a {string} folder in {string}'s {string} class.")
-    public void shouldHaveAFolderInSClass(final String account1, final String folderName, final String account2,
+    @Then("{string} should have a {string} material in {string}'s {string} class.")
+    public void shouldHaveAFolderInSClass(final String account1, final String materialName, final String account2,
                                           final String subject) {
-        // Login
-        Login login = new Login();
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account1)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account1)));
+        loginAs(account1);
 
-        subMenu = home.clickMenu("Courses");
-        subMenu.clickViewListLink("Courses");
-        Course course = courses.clickCourseLink(subject);
+        Course course = goToCourse(subject);
 
         Materials materials = course.clickMaterials();
-        Assert.assertEquals(materials.getFolder(), folderName);
+        Assert.assertEquals(materials.getMaterial(), materialName);
 
-        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account2)),
-                Environment.getInstance().getValue(String.format("credentials.%s.password", account2)));
+        loginAs(account2);
+    }
+
+    @When("I add an update to {string} course as {string} with {string}")
+    public void iAddAnUpdateToCourseAsWith(final String courseName, final String instructorName, final String update) {
+        loginAs(instructorName);
+
+        Course course = goToCourse(courseName);
+        Updates updates = course.clickUpdates();
+        updates.createUpdate(update);
+        context.setContext("instructor", instructorName);
+        context.setContext("description", update);
+    }
+
+    @Then("{string} should see the update in {string} class")
+    public void shouldSeeTheUpdateInClass(final String student, final String courseName) {
+        loginAs(student);
+
+        Course course = goToCourse(courseName);
+
+        Updates updates = course.clickUpdates();
+        String description = context.getValue("description");
+        Assert.assertEquals(updates.getUpdateText(description), description);
+
+        String instructorName = context.getValue("instructor");
+        loginAs(instructorName);
+    }
+
+    @When("I as {string} user of {string} course create a Discussion for my class with:")
+    public void iAsUserOfCourseCreateADiscussionForMyClassWith(final String instructorName, final String courseName,
+                                                               final Map<String, String> discussionData) {
+        context.setContext("instructor", instructorName);
+        context.setContext("course", courseName);
+        // Login
+        loginAs(instructorName);
+
+        Course course = goToCourse(courseName);
+
+        Materials materials = course.clickMaterials();
+        CreateDiscussionPopup createDiscussionPopup = materials.clickAddDiscussion();
+        createDiscussionPopup.createDiscussion(discussionData);
     }
 }

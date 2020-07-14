@@ -18,13 +18,14 @@ public class WebdriverAction {
     }
 
     public void click(final WebElement webElement) {
+        wait.until(ExpectedConditions.visibilityOf(webElement));
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
         webElement.click();
     }
 
     public void click(final By locator) {
-        wait.until(ExpectedConditions.elementToBeClickable(locator))
-                .click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated((locator)));
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
     public String getText(final WebElement webElement) {
@@ -34,5 +35,9 @@ public class WebdriverAction {
 
     public String getText(final By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
+    }
+
+    public boolean getStatus(final By locator) {
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 }
