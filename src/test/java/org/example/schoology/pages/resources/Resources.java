@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class Resources extends ViewList {
 
     public static final String GROUP_ACTIONS_BUTTON =
-            "//span[text()='%s']/ancestor::tr//div[@href='#']//span[@class='action-links-unfold-inline-image']";
+            "//div/span[text()='%s']/ancestor::tr//div[@href='#']";
     public static final String ADD_TO_COURSE =
             "//span[text()='%s']/ancestor::tr//a[@class='action-add-course sExtlink-processed popups-processed']";
     public static final String DELETE_RUBRIC_ACTION =

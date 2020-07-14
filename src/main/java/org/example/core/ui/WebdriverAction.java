@@ -25,8 +25,7 @@ public class WebdriverAction {
 
     public void click(final By locator) {
         wait.until(ExpectedConditions.visibilityOfElementLocated((locator)));
-        wait.until(ExpectedConditions.elementToBeClickable(locator))
-                .click();
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
     public String getText(final WebElement webElement) {

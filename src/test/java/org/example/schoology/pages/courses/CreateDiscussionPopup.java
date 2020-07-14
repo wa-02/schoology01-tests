@@ -2,6 +2,7 @@ package org.example.schoology.pages.courses;
 
 import org.example.core.ui.AbstractPage;
 import org.example.schoology.pages.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.util.HashMap;
@@ -33,8 +34,9 @@ public class CreateDiscussionPopup extends AbstractPage {
     }
 
     private void setDescription(final String description) {
-        driver.switchTo().frame("edit-description_ifr");
-        descriptionTextField.sendKeys(description);
+        driver.switchTo().frame("edit-post_ifr");
+        driver.findElement(By.xpath("//body[contains(@class, 'mceContentBody')]")).click();
+        driver.findElement(By.xpath("//body[contains(@class, 'mceContentBody')]/child::p")).sendKeys(description);
         driver.switchTo().defaultContent();
     }
 

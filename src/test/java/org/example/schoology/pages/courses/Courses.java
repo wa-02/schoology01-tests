@@ -8,10 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.concurrent.TimeUnit;
+
 public class Courses extends ViewList {
 
-    public static final String XPATH_COURSE_ACTIONS_BUTTON =
-            "//span[text()='%s']/ancestor::li//div[@href='#']";
+    public static final String XPATH_COURSE_ACTIONS_BUTTON ="//span[text()='%s']/ancestor::li//div[@class='action-links-unfold ']";
+
 
     public static final String XPATH_SECTION_BY_NAME =
             "//span[text()='%s']/parent::p/parent::li//a[@class='sExtlink-processed']";
@@ -39,12 +41,15 @@ public class Courses extends ViewList {
     }
 
     public JoinCoursePopup clickJoinCourseButton() {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         action.click(joinCourseButton);
         return new JoinCoursePopup();
     }
 
 
     public EditCoursePopup clickEditCourse(final String courseName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON, courseName))));
         WebElement courseActionsButton = driver.findElement(By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON,
                 courseName)));
 
@@ -58,14 +63,12 @@ public class Courses extends ViewList {
     }
 
     public DeletePopup clickDeleteCourse(final String courseName) {
-        WebElement courseActionsButton = driver.findElement(By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON,
-                courseName)));
-
-        // Scroll
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON, courseName))));
+        WebElement actionsButton = driver.findElement(By.xpath(String.format(XPATH_COURSE_ACTIONS_BUTTON, courseName)));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", courseActionsButton);
-
-        action.click(courseActionsButton);
+        js.executeScript("arguments[0].scrollIntoView();", actionsButton);
+        action.click(actionsButton);
         action.click(deleteCourse);
         return new DeletePopup();
     }
