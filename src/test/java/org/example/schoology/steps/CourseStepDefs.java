@@ -52,8 +52,8 @@ public class CourseStepDefs {
     }
 
     private Course goToCourse(final String subject) {
-        subMenu = home.clickMenu("courses");
-        subMenu.clickViewListLink("courses");
+        subMenu = home.clickMenu("Courses");
+        subMenu.clickViewListLink("Courses");
         return courses.clickCourseLink(subject);
     }
 
@@ -155,6 +155,8 @@ public class CourseStepDefs {
 
     @When("I add an update to {string} course as {string} with {string}")
     public void iAddAnUpdateToCourseAsWith(final String courseName, final String instructorName, final String update) {
+        loginAs(instructorName);
+
         Course course = goToCourse(courseName);
         Updates updates = course.clickUpdates();
         updates.createUpdate(update);
