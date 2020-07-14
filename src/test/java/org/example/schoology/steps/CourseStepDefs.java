@@ -66,6 +66,7 @@ public class CourseStepDefs {
         CreateCoursePopup createCoursePopup = this.courses.clickCreateCourseButton();
         createCoursePopup.create(datatable);
         context.setContext("CourseKey", datatable.get("name"));
+        context.setContext("SectionKey", datatable.get("section"));
     }
 
     @And("I edit the {string} course with:")

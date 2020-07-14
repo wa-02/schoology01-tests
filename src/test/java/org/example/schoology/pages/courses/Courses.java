@@ -37,6 +37,9 @@ public class Courses extends ViewList {
     @FindBy(css = "ul[style=\"display: block;\"] .action-delete-link")
     private WebElement deleteCourse;
 
+    @FindBy(xpath = "//h3[text()=\"Manage Courses\"]")
+    private WebElement manageCoursesDescription;
+
     public CreateCoursePopup clickCreateCourseButton() {
         action.click(createCourseButton);
         return new CreateCoursePopup();
@@ -98,4 +101,5 @@ public class Courses extends ViewList {
         action.click(courseLink);
         return new Course();
     }
+
 }

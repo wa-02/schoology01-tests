@@ -5,14 +5,21 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.core.Environment;
+import org.example.core.Internationalization;
 import org.example.core.ScenarioContext;
 import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
 import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.courses.Courses;
-import org.example.schoology.pages.resources.Resources;
+import org.example.schoology.pages.SubMenuTemplate;
+import org.example.schoology.pages.courses.ImportFromResourcesPopup;
+import org.example.schoology.pages.courses.ImportResourcePopup;
+import org.example.schoology.pages.courses.Course;
+import org.example.schoology.pages.courses.JoinCoursePopup;
 import org.example.schoology.pages.resources.AddCollectionPopup;
+import org.example.schoology.pages.resources.AddTemplatePopup;
+import org.example.schoology.pages.resources.Resources;
 import org.example.schoology.pages.resources.AddRubricPopup;
 import org.example.schoology.pages.resources.AddToCoursePopup;
 import org.example.schoology.pages.resources.ShareSettingsPopup;
@@ -27,15 +34,32 @@ public class ResourceStepDefs {
     private Resources resources;
     private Home home;
     private Courses course;
+    private Course courseName;
+
     private SubMenu subMenu;
+
     private AddCollectionPopup addCollectionPopup;
     private ShareSettingsPopup shareSettingPopup;
     private AddRubricPopup addRubricPopup;
     private AddToCoursePopup addCourse;
 
+    private AddTemplatePopup addTemplatePopup;
+
+    private SubMenuTemplate subMenuTemplate;
+
+    private ImportResourcePopup importResourcePopup;
+
+    private ImportFromResourcesPopup importFromResourcePopup;
+
     public ResourceStepDefs(final SharedDriver sharedDriver, final ScenarioContext context, final Home home) {
         this.home = home;
         this.context = context;
+    }
+
+    private void loginAs(final String account) {
+        Login login = new Login();
+        home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
+                Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
     }
 
     @And("I create a resource collection with:")
@@ -69,9 +93,46 @@ public class ResourceStepDefs {
         resources = home.clickResourcesMenu();
     }
 
-    @Then("I should see the {string} title collection")
-    public void iShouldSeeTheTitleCollection(final String collectionTitle) {
+    @Then("I should see the {string} title collection of the {string}")
+    public void iShouldSeeTheTitleCollection(final String collectionTitle, final String instructorTwo) {
         Assert.assertEquals(collectionTitle, resources.getCollectionByName(collectionTitle));
+        loginAs(instructorTwo);
+    }
+
+    @And("I create a Quiz resource with:")
+    public void iCreateAResourceWith(final Map<String, String> datatable) {
+        resources = new Home().clickResourcesMenu();
+        addTemplatePopup = resources.clickAddTestQuiz();
+        subMenuTemplate = addTemplatePopup.create(datatable);
+        context.setContext("ResourceNameKey", datatable.get("name"));
+    }
+
+    @When("I add the {string} to the course created")
+    public void iAddTheToThe(final String testQuiz) {
+         String menu = Internationalization.getInstance().getValue("menu");
+         subMenu = subMenuTemplate.clickMenu(menu);
+         subMenu.clickViewListLink(menu);
+         courseName = subMenu.clickCourseSection(context.getValue("SectionKey"));
+         importResourcePopup = courseName.clickAddMaterials();
+         importFromResourcePopup = importResourcePopup.addResource(testQuiz);
+         courseName = importFromResourcePopup.importCourse();
+    }
+
+    @And("I join to the course created")
+    public void iJoinToTheCourseCreated() {
+        String menu = Internationalization.getInstance().getValue("menu");
+        subMenu = home.clickMenu(menu);
+        subMenu.clickViewListLink(menu);
+        JoinCoursePopup joinCoursePopup = new Courses().clickJoinCourseButton();
+        joinCoursePopup.join(context.getValue("accessCode"));
+    }
+
+
+
+    @Then("I should see the {string} resource of my {string} in my course list")
+    public void iShouldSeeTheResourceSharedWithTheCourse(final String resource, final String instructor) {
+        Assert.assertTrue(resources.getResourceByName(resource));
+        loginAs(instructor);
     }
 
     @And("I create a rubric with:")

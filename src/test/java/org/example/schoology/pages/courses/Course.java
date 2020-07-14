@@ -23,11 +23,24 @@ public class Course extends AbstractPage {
     @FindBy(css = "div.course-member-left-menu")
     private WebElement membersButton;
 
+    @FindBy(css = "div.course-updates-left-menu")
+    private WebElement updatesButton;
+
+    @FindBy(xpath = "//span[text()=\"Add Materials\"]")
+    private WebElement addMaterialsButton;
+
+    @FindBy(xpath = "//a[text()=\"Import from Resources\"]")
+    private  WebElement importFromResourcesOption;
+
+    @FindBy(xpath = "//a[text()=\"Notifications\"]")
+    private WebElement notificationButton;
+
+    @FindBy(xpath = "//a[text()=\"Badges\"]")
+    private WebElement badgesSectionTab;
+
     @FindBy(css = "div.course-materials-left-menu")
     private WebElement materialsButton;
 
-    @FindBy(css = "div.course-updates-left-menu")
-    private WebElement updatesButton;
 
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
@@ -43,13 +56,25 @@ public class Course extends AbstractPage {
         return new Members();
     }
 
-    public Materials clickMaterials() {
-        materialsButton.click();
-        return new Materials();
+    public ImportResourcePopup clickAddMaterials() {
+        wait.until(ExpectedConditions.visibilityOf(notificationButton));
+        action.click(addMaterialsButton);
+        action.click(importFromResourcesOption);
+        return new ImportResourcePopup();
+    }
+
+    public Badges clickBadgeSectionTab() {
+        action.click(badgesSectionTab);
+        return new Badges();
     }
 
     public Updates clickUpdates() {
         updatesButton.click();
         return new Updates();
+    }
+
+    public Materials clickMaterials() {
+        materialsButton.click();
+        return new Materials();
     }
 }
