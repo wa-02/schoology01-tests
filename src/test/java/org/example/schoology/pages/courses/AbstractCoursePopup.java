@@ -7,6 +7,7 @@ import org.example.core.ui.AbstractPage;
 import org.example.schoology.pages.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public abstract class AbstractCoursePopup extends AbstractPage {
@@ -63,6 +64,7 @@ public abstract class AbstractCoursePopup extends AbstractPage {
     }
 
     public void setAccessCode(final String code) {
+        wait.until(ExpectedConditions.visibilityOf(accessCodeTextField));
         accessCodeTextField.sendKeys(code);
     }
 

@@ -11,6 +11,8 @@ import org.example.core.ui.SharedDriver;
 import org.example.schoology.pages.Home;
 import org.example.schoology.pages.Login;
 import org.example.schoology.pages.SubMenu;
+import org.example.schoology.pages.courses.Courses;
+import org.example.schoology.pages.SubMenu;
 import org.example.schoology.pages.SubMenuTemplate;
 import org.example.schoology.pages.courses.ImportFromResourcesPopup;
 import org.example.schoology.pages.courses.ImportResourcePopup;
@@ -20,6 +22,9 @@ import org.example.schoology.pages.courses.JoinCoursePopup;
 import org.example.schoology.pages.resources.AddCollectionPopup;
 import org.example.schoology.pages.resources.AddTemplatePopup;
 import org.example.schoology.pages.resources.Resources;
+import org.example.schoology.pages.resources.AddCollectionPopup;
+import org.example.schoology.pages.resources.AddRubricPopup;
+import org.example.schoology.pages.resources.AddToCoursePopup;
 import org.example.schoology.pages.resources.ShareSettingsPopup;
 import org.junit.Assert;
 
@@ -28,19 +33,20 @@ import java.util.Map;
 public class ResourceStepDefs {
 
 
+    private final ScenarioContext context;
     private Resources resources;
-
     private Home home;
+    private Courses course;
+    private SubMenu subMenu;
 
     private SubMenu subMenu;
 
     private Course course;
 
     private AddCollectionPopup addCollectionPopup;
-
     private ShareSettingsPopup shareSettingPopup;
-
-    private ScenarioContext context;
+    private AddRubricPopup addRubricPopup;
+    private AddToCoursePopup addCourse;
 
     private AddTemplatePopup addTemplatePopup;
 
@@ -75,10 +81,10 @@ public class ResourceStepDefs {
         Login login = new Login();
         home = login.loginAs(Environment.getInstance().getValue(String.format("credentials.%s.username", account)),
                 Environment.getInstance().getValue(String.format("credentials.%s.password", account)));
-            context.setContext("userName", Environment.getInstance()
-                    .getValue(String.format("credentials.%s.username", account)));
-            context.setContext("passWord", Environment.getInstance()
-                    .getValue(String.format("credentials.%s.password", account)));
+        context.setContext("userName", Environment.getInstance()
+                .getValue(String.format("credentials.%s.username", account)));
+        context.setContext("passWord", Environment.getInstance()
+                .getValue(String.format("credentials.%s.password", account)));
     }
 
     @When("I share the {string} collection with {string}")
@@ -92,6 +98,8 @@ public class ResourceStepDefs {
         resources = home.clickResourcesMenu();
     }
 
+    @Then("I should see the {string} title collection")
+    public void iShouldSeeTheTitleCollection(final String collectionTitle) {
     @Then("I should see the {string} title collection of the {string}")
     public void iShouldSeeTheTitleCollection(final String collectionTitle, final String instructorTwo) {
         Assert.assertEquals(collectionTitle, resources.getCollectionByName(collectionTitle));
@@ -134,4 +142,22 @@ public class ResourceStepDefs {
         loginAs(instructor);
     }
 
+    @And("I create a rubric with:")
+    public void iCreateARubricWith(final Map<String, String> datatable) {
+        resources = home.clickResourcesMenu();
+        addRubricPopup = resources.clickAddRubric();
+        resources = addRubricPopup.create(datatable);
+        context.setContext("RubricKey", datatable.get("title"));
+    }
+
+    @And("I add the rubric to Course {string}")
+    public void iAddTheRubricToCourse(final String courseName) {
+        addCourse = resources.clickAddRubricToCourse(courseName);
+        addCourse.selectCourse(courseName);
+    }
+
+    @Then("I should see the rubric {string} in list")
+    public void iShouldSeeTheRubricInCourse(final String rubricName) {
+        Assert.assertEquals(rubricName, resources.getRubricByName(rubricName));
+    }
 }
