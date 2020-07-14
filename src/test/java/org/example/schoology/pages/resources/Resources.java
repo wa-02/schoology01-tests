@@ -59,6 +59,9 @@ public class Resources extends ViewList {
     @FindBy(xpath = "//input[@value='Delete']")
     private WebElement deleteButton;
 
+    @FindBy(xpath = "//h2[text()=\"Home\"]")
+    private WebElement resourceActionButton;
+
     public static final String RESOURCE_ACTION_BUTTON =
             "//a[text()='%s']/parent::td/following-sibling::td/child::div/child::div[@role='button']";
     public static final String DELETE_RESOURCE_ACTION_BUTTON =
@@ -102,6 +105,7 @@ public class Resources extends ViewList {
 
 
     public void clickDeleteResource(final String resourceName) {
+        wait.until(ExpectedConditions.visibilityOf(resourceActionButton));
         action.click(By.xpath(String.format(RESOURCE_ACTION_BUTTON, resourceName)));
         action.click(By.xpath(String.format(DELETE_RESOURCE_ACTION_BUTTON, resourceName)));
         wait.until(ExpectedConditions.visibilityOfElementLocated(deletePopUp));

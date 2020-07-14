@@ -73,7 +73,6 @@ public class Course extends AbstractPage {
         return new Updates();
     }
 
-
     public Materials clickMaterials() {
         materialsButton.click();
         return new Materials();
