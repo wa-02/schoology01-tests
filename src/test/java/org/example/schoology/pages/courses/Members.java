@@ -10,7 +10,7 @@ public class Members extends AbstractPage {
     @FindBy(css = ".members-filter")
     private WebElement membersTab;
 
-    @FindBy(css = "tr.enrollment-member>td.user-name>a")
+    @FindBy(css = "td.user-name>a")
     private WebElement fullNameText;
 
     public void clickMembers() {
