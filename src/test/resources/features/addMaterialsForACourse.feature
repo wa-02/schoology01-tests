@@ -60,3 +60,15 @@ Feature: Add Material for a course
       | title       | What is Art    |
       | description | Talk about Art |
     Then "Student01" should have a "What is Art" material in "Instructor01"'s "Art 100" class.
+
+  @deleteCourse
+  Scenario: Verify that an student can show a page create for an instructor
+    Given I am a "Instructor01" of:
+      | name    | Physical 300 |
+      | section | New Section  |
+      | area    | Technology   |
+      | level   | Graduate     |
+    And "Student02" is my student
+    When I as "Instructor01" user of "Physical 300" course create a "Page" for my class
+      | title       | Notes           |
+    Then "Student02" should have a "Notes" material in "Instructor01"'s "Physical 300" class.
