@@ -4,10 +4,10 @@ Feature: Post a badge
   Scenario: post a badge as a teacher to a one student
      Given I log in as "Instructor01" user
      And I create a course with:
-      | name    | CourseBadge      |
-      | section | New Section      |
-      | area    | Technology       |
-      | level   | Graduate         |
+      | name    | CourseBadge     |
+      | section | New Section     |
+      | area    | Technology      |
+      | level   | Graduate        |
      And I have the course code
      When "Student01" user use the "AccessCode"
      And I log in as "Instructor01" user
