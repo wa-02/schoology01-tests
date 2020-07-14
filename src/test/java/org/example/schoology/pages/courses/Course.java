@@ -23,9 +23,6 @@ public class Course extends AbstractPage {
     @FindBy(css = "div.course-member-left-menu")
     private WebElement membersButton;
 
-    @FindBy(css = "div.course-materials-left-menu")
-    private WebElement materialsButton;
-
     @FindBy(css = "div.course-updates-left-menu")
     private WebElement updatesButton;
 
@@ -41,6 +38,10 @@ public class Course extends AbstractPage {
     @FindBy(xpath = "//a[text()=\"Badges\"]")
     private WebElement badgesSectionTab;
 
+    @FindBy(css = "div.course-materials-left-menu")
+    private WebElement materialsButton;
+
+
     public Course() {
         wait.until(ExpectedConditions.visibilityOf(courseProfileMaterials));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cssCourseProfile));
@@ -53,11 +54,6 @@ public class Course extends AbstractPage {
     public Members clickMembers() {
         membersButton.click();
         return new Members();
-    }
-
-    public Materials clickMaterials() {
-        materialsButton.click();
-        return new Materials();
     }
 
     public ImportResourcePopup clickAddMaterials() {
@@ -75,5 +71,11 @@ public class Course extends AbstractPage {
     public Updates clickUpdates() {
         updatesButton.click();
         return new Updates();
+    }
+
+
+    public Materials clickMaterials() {
+        materialsButton.click();
+        return new Materials();
     }
 }

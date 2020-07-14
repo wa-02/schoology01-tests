@@ -37,11 +37,9 @@ public class ResourceStepDefs {
     private Resources resources;
     private Home home;
     private Courses course;
-    private SubMenu subMenu;
+    private Course courseName;
 
     private SubMenu subMenu;
-
-    private Course course;
 
     private AddCollectionPopup addCollectionPopup;
     private ShareSettingsPopup shareSettingPopup;
@@ -98,8 +96,6 @@ public class ResourceStepDefs {
         resources = home.clickResourcesMenu();
     }
 
-    @Then("I should see the {string} title collection")
-    public void iShouldSeeTheTitleCollection(final String collectionTitle) {
     @Then("I should see the {string} title collection of the {string}")
     public void iShouldSeeTheTitleCollection(final String collectionTitle, final String instructorTwo) {
         Assert.assertEquals(collectionTitle, resources.getCollectionByName(collectionTitle));
@@ -119,10 +115,10 @@ public class ResourceStepDefs {
          String menu = Internationalization.getInstance().getValue("menu");
          subMenu = subMenuTemplate.clickMenu(menu);
          subMenu.clickViewListLink(menu);
-         course = subMenu.clickCourseSection(context.getValue("SectionKey"));
-         importResourcePopup = course.clickAddMaterials();
+         courseName = subMenu.clickCourseSection(context.getValue("SectionKey"));
+         importResourcePopup = courseName.clickAddMaterials();
          importFromResourcePopup = importResourcePopup.addResource(testQuiz);
-         course = importFromResourcePopup.importCourse();
+         courseName = importFromResourcePopup.importCourse();
     }
 
     @And("I join to the course created")

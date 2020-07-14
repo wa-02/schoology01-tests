@@ -101,4 +101,5 @@ public class Courses extends ViewList {
         action.click(courseLink);
         return new Course();
     }
+
 }

@@ -22,8 +22,6 @@ public class Resources extends ViewList {
     @FindBy(css = "a[id=\"add-collection-btn\"]")
     private WebElement addCollectionButton;
 
-    public static final String COLLECTION_BY_NAME = "//a[text()='%s']";
-
     private static final String XPATH_RESOURCE_BY_NAME = "//a[text()='%s']";
 
     public static final String RESOURCE_BY_NAME =
@@ -147,8 +145,6 @@ public class Resources extends ViewList {
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath(String.format(GROUP_ACTIONS_BUTTON, rubricName))));
         WebElement actionsButton = driver.findElement(By.xpath(String.format(GROUP_ACTIONS_BUTTON, rubricName)));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", actionsButton);
         action.click(actionsButton);
 
         WebElement deleteAction = driver.findElement(By.xpath(String.format(DELETE_RUBRIC_ACTION, rubricName)));
